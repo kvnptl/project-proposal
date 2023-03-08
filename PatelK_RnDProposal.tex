@@ -31,7 +31,7 @@
 
     % Why do we need multi-modal sensor fusion?
         % Check where to put this question
-    
+
     \item Fuse different sensor modalities like point cloud, pixels, and time series 
     \item Improve perception in adverse weather conditions e.g., fog, rain, snow, overcast, sleet, night
     \item Synchronization of multi-modal data
@@ -39,6 +39,46 @@
     \item Make use of a data-driven approach
     \item Geometrically alignments of different sensors
     \item Real-time sensor fusion with low latency
+
+    \item Topic naming convention
+        \begin{itemize}
+            \item {Object detection}
+            \begin{itemize}
+                \item 2D object detection - car, truck, pedestrian, cycle
+            \end{itemize}
+        
+            \item {Adverse weather conditions}
+            \begin{itemize}
+                \item Fog, snow, rainy, overcast, sleet, dust
+            \end{itemize}
+        
+            \item {Tightly-coupled}
+            \begin{itemize}
+                \item How different modalities are combined at what level
+                \begin{itemize}
+                    \item Eg. searly fusion, mid fusion/feature fusion, late fusion, ROI fusion, decision fusion
+                \end{itemize}
+            \end{itemize}
+        
+            \item {Data-driven}
+            \begin{itemize}
+                \item Using previously collected data or publicly available datasets
+            \end{itemize}
+        
+            \item {Multi-modal}
+            \begin{itemize}
+                \item Using different data modalities
+                \begin{itemize}
+                    \item Sensors: Lidar, camera, IMU, GPS, infrared, radar
+                    \item Datatypes: Point cloud, image, timer series
+                \end{itemize}
+            \end{itemize}
+        
+            \item {Sensor fusion}
+            \begin{itemize}
+                \item Fuse different sensors data to get a better estimation of an environment
+            \end{itemize}
+        \end{itemize}
 
 % *************************
     % \item Provide reasonably detailed description of what you intent to do in your R\&D project.
@@ -49,29 +89,132 @@
 
 \subsection{Relevance of This R\&D Project}
 \begin{itemize}
-    \item Who will benefit from the results of this R\&D project?
-    \item What are the benefits? Quantify the benefits with concrete numbers.
+% CAGR - Compound Annual Growth Rate
+
+    \item According to Federal Highway Administration(FHA), adverse weather-related vehicle crashes cause over 5,000 fatalities and over 418,000 injuries each year in the United States. 
+    \cite{federal-highway-administration-no-date}
+
+    % Insurance Institute for Highway Safety (IIHS)
+    \item The IIHS also found that in snowy weather, the fatal crash rate is 21\% higher than on clear roads, while during sleet and freezing rain, the rate is even higher at 37\%.
+
+    \item According to the European Commission, 25\% of all road accidents in Europe happen due to adverse weather conditions, from highest to lowest: frost and ice, snow, and rain.
+    \cite{cookson-2022}
+
+    \item Autonomous vehicles: according to Marketsandmarkets, the sensor fusion market for autonomous vehicles is expected to reach \$ 22.2 billion by 2030 at a CAGR of 25.4\%  
+    \cite{marketsandmarkets}
+
+    \item According to the Federal Highway Administration (FHWA), poor visibility is a contributing factor in over 7,000 annual crashes in the United States.
+    
+    \item According to the National Highway Traffic Safety Administration (NHTSA), poor visibility was a contributing factor in over 4,000 fatal crashes in the United States in 2018.
+    
+    \item According to the IIHS, in foggy weather, fatal crashes happen at a rate that is 6 times higher than in clear weather.
+    
+    \item According to European Transport Safety Council (ETSC), over 12,000 people die on European roads each year in weather-related accidents, from highest to lowest: frost and ice, snow, and rain.
+    
+    \item Not only this, there are other sectors, for example, healthcare for wearable sensors, precision agriculture, and environmental monitoring, that have also seen the fruitful impact of multi-modal sensor fusion.
+
+    \item \textbf{Healthcare sector}: wearable sensors, estimated that the global wearable device market is expected to reach over \$ 54 billion in revenue by 2027, growing at a CAGR of over 13\%
+    
+    \item \textbf{Precision agriculture and  environmental monitoring}: for better crop health and analyze deforestation, \$45 billion by 2026, growing at a CAGR of over 20\% 
+    
+    \item \textbf{Aerospace and defense}: including aircraft navigation and control, missile guidance, and military logistics. Expected to reach \$4.71 billion by 2025, at a CAGR of 8.2\%    
+
+    \item \textbf{Industrial automation}:  increase the efficiency and productivity of manufacturing processes, as well as reduce the risk of errors and accidents
+    
+
+    
+% *************************    
+    % \item Who will benefit from the results of this R\&D project?
+    % \item What are the benefits? Quantify the benefits with concrete numbers.
+% *************************
  \end{itemize}
 
 \section{Related Work}
 
 \subsection{Survey of Related Work}
 \begin{itemize}
-    \item What have other people done to solve the problem?
-    \item You should reference and briefly discuss at least the ``top twelve'' related works
+    \item Bijelic et al. employed a deep learning-based transfer learning approach to address unseen adverse weather conditions
+    \cite{bijelic2020seeing}
+    \begin{itemize}
+        \item 5 sensor modalities C-R-L-FIR-NIR
+    \end{itemize}
+    
+    \item K-radar: 
+    \cite{Paek2022Jun}
+    \begin{itemize}
+        \item Released 4D radar dataset
+        \item Showed baseline network only, and mAP still 41.1\%
+        \item But not compared with other multi-modal architectures and does not use advanced NN techniques 
+    \end{itemize}
+        
+    
+    \item C-R Fusion:
+    \cite{Nobis2020May}
+    \begin{itemize}
+        \item Model inspired by C-L fusion
+        \item Shows the importance of radar in object detection
+    \end{itemize}    
+    
+    
+    % ***********************
+    % \item What have other people done to solve the problem?
+    % \item You should reference and briefly discuss at least the ``top twelve'' related works
+    % ***********************
 \end{itemize}
 
 \subsection{Limitation and Deficits in the State of the Art}
 \begin{itemize}
-    \item List the deficits that you have discovered in the related work and explain them such that a person who is not deep into the technical details can still understand them.
-    For each deficit, provide at least two references
-    \item You should reference and briefly discuss at least the ``top twelve'' related works
+
+    \item Most existing works fuse RGB images from visual cameras with 3D LiDAR point clouds    
+    \cite{feng2020deep}
+    
+    \item There is no general guideline for network architecture design, and the below questions are still open\cite{Zhou2022May}: 
+        \begin{itemize}
+            \item “what to fuse” - lidar, radar, color camera, thermal camera, event camera, ultrasonic 
+            \item “how to fuse” - addition or mean, concatenate, ensemble, mixture of experts
+            \item “when to fuse” - early, mid, late, combination of all
+        \end{itemize}
+
+    \item Previous studies lack comparison with alternative models or datasets
+    \item showing only results for their own baseline models and custom datasets
+    
+    \item None of the multi-modal sensor fusion algorithms handle temporal information
+    \cite{bijelic2020seeing}
+    
+    \item Not much work available utilizing 4D imaging radar sensor 
+    \cite{Zhou2022May}    
+
+
+    % ***********************
+    % \item List the deficits that you have discovered in the related work and explain them such that a person who is not deep into the technical details can still understand them.
+    % For each deficit, provide at least two references
+    % \item You should reference and briefly discuss at least the ``top twelve'' related works
+    % ***********************
 \end{itemize}
 
 \section{Problem Statement}
 \begin{itemize}
+    
     \item Which of the deficits are you going to solve?
+    
     \item What is your intended approach?
+    \item A thorough analysis and practical implementation of state-of-the-art methods for object detection using multiple modalities including but not limited to camera, lidar, and radar
+        
+    \item Determining an appropriate fusion strategy to exploit the complementary characteristics of various sensors
+    \begin{itemize}
+        \item How to fuse camera + 4D radar data
+    \end{itemize}
+    
+    \item Fusion of spatial and temporal information from multi-modal sensors
+
+    \item If required, use CARLA or other simulators to validate the performance of a model 
+    
+    \item Conduct experiments and compare outcomes with various models and adverse weather conditions datasets
+    \begin{itemize}
+        \item Datasets: K-radar\cite{Paek2022Jun}, DENSE\cite{bijelic2020seeing}, aiMotive\cite{Matuszka2022Nov}
+    \end{itemize}    
+
+
     \item How will you compare you approach with existing approaches?
 \end{itemize}
 
@@ -130,7 +273,7 @@ Please note that the final grade will not only depend on the results obtained in
 
 \nocite{*}
 
-\bibliographystyle{plainnat} % Use the plainnat bibliography style
+\bibliographystyle{unsrt} % Use the plainnat bibliography style
 \bibliography{bibliography.bib} % Use the bibliography.bib file as the source of references
 
 \end{document}
