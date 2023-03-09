@@ -24,72 +24,130 @@
 
 \subsection{Topic of This R\&D Project}
 \begin{itemize}
-    \item What is Sensor Fusion?
-    \begin{itemize}
-        \item The process of combining data from multiple sensors to provide a more accurate, reliable, and comprehensive understanding of an environment or situation.
-    \end{itemize}
-
-    % Why do we need multi-modal sensor fusion?
-        % Check where to put this question
-
-    \item Fuse different sensor modalities like point cloud, pixels, and time series 
-    \item Improve perception in adverse weather conditions e.g., fog, rain, snow, overcast, sleet, night
-    \item Synchronization of multi-modal data
-    \item Process dense and sparse resolution sensors data
-    \item Make use of a data-driven approach
-    \item Geometrically alignments of different sensors
-    \item Real-time sensor fusion with low latency
-
-    \item Topic naming convention
-        \begin{itemize}
-            \item {Object detection}
-            \begin{itemize}
-                \item 2D object detection - car, truck, pedestrian, cycle
-            \end{itemize}
-        
-            \item {Adverse weather conditions}
-            \begin{itemize}
-                \item Fog, snow, rainy, overcast, sleet, dust
-            \end{itemize}
-        
-            \item {Tightly-coupled}
-            \begin{itemize}
-                \item How different modalities are combined at what level
-                \begin{itemize}
-                    \item Eg. searly fusion, mid fusion/feature fusion, late fusion, ROI fusion, decision fusion
-                \end{itemize}
-            \end{itemize}
-        
-            \item {Data-driven}
-            \begin{itemize}
-                \item Using previously collected data or publicly available datasets
-            \end{itemize}
-        
-            \item {Multi-modal}
-            \begin{itemize}
-                \item Using different data modalities
-                \begin{itemize}
-                    \item Sensors: Lidar, camera, IMU, GPS, infrared, radar
-                    \item Datatypes: Point cloud, image, timer series
-                \end{itemize}
-            \end{itemize}
-        
-            \item {Sensor fusion}
-            \begin{itemize}
-                \item Fuse different sensors data to get a better estimation of an environment
-            \end{itemize}
-        \end{itemize}
-
 % *************************
     % \item Provide reasonably detailed description of what you intent to do in your R\&D project.
     % \item You may also discuss the challenges that you have to address.
     % \item Reflect on the profile of the reader and PLEAAAASE, tell a story here and refrain from bombarding the readers with details which they may not be able to appreciate.
 % **************************
+    
+    % \item What is Sensor Fusion?
+    % \begin{itemize}
+    %     \item The process of combining data from multiple sensors to provide a more accurate, reliable, and comprehensive understanding of an environment or situation.
+    % \end{itemize}
+
+    % Why do we need multi-modal sensor fusion?
+        % Check where to put this question
+
+    % \item To address this challenge, our research and development project aims to fuse different sensor modalities, including point cloud, pixel, and time series data, to improve perception and object detection accuracy in a variety of adverse weather conditions.
+
+    % \item Fuse different sensor modalities like point cloud, pixels, and time series 
+    % \item Improve perception in adverse weather conditions e.g., fog, rain, snow, overcast, sleet, night
+    % \item Synchronization of multi-modal data
+    % \item Process dense and sparse resolution sensors data
+    % \item Make use of a data-driven approach
+    % \item Geometrically alignments of different sensors
+    % \item Real-time sensor fusion with low latency
+
+    \item Imagine driving on a winding mountain road at night, with fog and rain obscuring your view, your vehicle's self-driving system struggles to detect objects ahead due to the challenging weather conditions. Suddenly, a deer jumps out in front of your car, causing the system to issue an alert and apply the brakes in time to avoid a collision.
+    
+    \item This scenario highlights the importance of object detection in adverse weather conditions for self-driving cars. Visual cameras, which are commonly used for object detection, may be distorted or obscured by rain, fog, snow, or low light, making it difficult to accurately detect objects on the road \cite{yurtsever2020survey} \cite{carballo2020libre} \cite{mcity2020}.
+    
+    \item To address these challenges, this project aims to implement a multi-modal sensor fusion system that combines cameras, radar, and lidar sensors. By fusing data from multiple sensors and leveraging advanced machine learning algorithms, the goal is to enhance object detection's range, accuracy, and reliability in adverse weather conditions.
+    
+    \item The focus will also be on synchronizing multi-modal data, processing dense and sparse resolution sensor data, and using a data-driven approach to optimize object detection performance.
+    
+    \item However, this project also faces several challenges. For example, different sensors may have different resolutions and sampling rates and may require sophisticated calibration and alignment techniques to ensure the accurate fusion of their data. Furthermore, processing large volumes of sensor data with minimal latency requires efficient and scalable algorithms and hardware architectures.
+    
+    \item The proposed system will be trained on a diverse dataset to ensure robustness and adaptability in different weather and lighting conditions. The system's effectiveness will be evaluated by extensive experiments and by comparing existing state-of-the-art methods.
+    
+    \item Despite the challenges, the project has the potential to revolutionize object detection in adverse weather conditions, with applications ranging from self-driving cars to surveillance and security systems. By fusing multiple sensor data sources and optimizing their fusion, situational awareness can be enhanced, enabling safer and more efficient operations in various domains.
+    
+    \item This research aims to facilitate safe and efficient self-driving in adverse weather conditions, prioritizing the safety of passengers, other drivers, and pedestrians on the road. To accomplish this, the proposed approach is to develop a sensor fusion system that operates with minimal latency, enabling data processing from multiple sensors in near real-time.
+    
+    % write code to put next item on new page
+    \newpage
+
+    \item Topic naming convention:
+        \begin{itemize}
+            \item Object detection
+                \begin{itemize}
+                    \item Refers to the task of detecting objects within an image or video stream.
+                    \item In this project, the focus is on detecting 2D objects such as cars, trucks, pedestrians, and cyclists.
+                \end{itemize}
+            \item Adverse weather conditions
+                \begin{itemize}
+                    \item Refers to conditions such as fog, snow, rain, overcast skies, sleet, and dust.
+                    \item These conditions can make object detection more challenging due to reduced visibility or other environmental factors.
+                \end{itemize}
+            \item Tightly-coupled
+                \begin{itemize}
+                    \item Refers to how different modalities of data are combined and integrated at different levels.
+                    \item Rather than relying solely on early, mid, or late fusion techniques, a combination of features at different levels is employed to achieve optimal fusion results.
+                \end{itemize}
+            \item Data-driven
+                \begin{itemize}
+                    \item Refers to the use of previously collected data or publicly available datasets to improve object detection performance.
+                \end{itemize}
+            \item Multi-modal
+                \begin{itemize}
+                    \item Refers to the use of different data modalities to improve object detection performance.
+                    \item Examples include sensors such as lidar, camera, IMU, GPS, infrared, and radar, with different datatypes such as point clouds, images, and time series data.
+                \end{itemize}
+            \item Sensor fusion
+                \begin{itemize}
+                    \item Refers to the process of fusing data from different sensors to get a better estimation of an environment and improve object detection performance.
+                \end{itemize}
+        \end{itemize}
+
+        % \begin{itemize}
+        %     \item {Object detection}
+        %     \begin{itemize}
+        %         \item 2D object detection - car, truck, pedestrian, cycle
+        %     \end{itemize}
+        
+        %     \item {Adverse weather conditions}
+        %     \begin{itemize}
+        %         \item Fog, snow, rainy, overcast, sleet, dust
+        %     \end{itemize}
+        
+        %     \item {Tightly-coupled}
+        %     \begin{itemize}
+        %         \item How different modalities are combined at what level
+        %         \begin{itemize}
+        %             \item Eg. sensor fusion, mid fusion/feature fusion, late fusion, ROI fusion, decision fusion
+        %         \end{itemize}
+        %     \end{itemize}
+        
+        %     \item {Data-driven}
+        %     \begin{itemize}
+        %         \item Using previously collected data or publicly available datasets
+        %     \end{itemize}
+        
+        %     \item {Multi-modal}
+        %     \begin{itemize}
+        %         \item Using different data modalities
+        %         \begin{itemize}
+        %             \item Sensors: Lidar, camera, IMU, GPS, infrared, radar
+        %             \item Datatypes: Point cloud, image, timer series
+        %         \end{itemize}
+        %     \end{itemize}
+        
+        %     \item {Sensor fusion}
+        %     \begin{itemize}
+        %         \item Fuse different sensors data to get a better estimation of an environment
+        %     \end{itemize}
+        % \end{itemize}
+
+
 \end{itemize}
 
 \subsection{Relevance of This R\&D Project}
 \begin{itemize}
 % CAGR - Compound Annual Growth Rate
+
+    \item Weather phenomena have various negative influences on traffic and transportation. Averagely, global precipi- tation occurs 11.0\% of the time [4]. It has been proven that the risk of accident in rain conditions is 70\% higher than normal [5]. 77\% of the countries in the world re- ceive snow.
+    
+    \item Take the United States national statistics as an example, each year over 30,000 vehicle crashes occur on snowy or icy roads or during snowfall or sleet [6], so the threat from snow is bona fide
 
     \item According to Federal Highway Administration(FHA), adverse weather-related vehicle crashes cause over 5,000 fatalities and over 418,000 injuries each year in the United States. 
     \cite{federal-highway-administration-no-date}
