@@ -7,7 +7,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 
-\title{Object detection in adverse weather conditions using tightly-coupled data-driven multi-modal sensor fusion}
+\title{Object detection in adverse weather conditions using tightly-coupled data-driven multimodal sensor fusion}
 \author{Kevin Patel}
 \supervisors{Prof. Dr.-Ing. Sebastian Houben\\M.Sc. Santosh Thoduka}
 \date{February 2023}
@@ -52,9 +52,9 @@
     
     \item This scenario highlights the importance of object detection in adverse weather conditions for self-driving cars. Visual cameras, which are commonly used for object detection, may be distorted or obscured by rain, fog, snow, or low light, making it difficult to accurately detect objects on the road \cite{yurtsever2020survey} \cite{carballo2020libre} \cite{mcity2020}.
     
-    \item To address these challenges, this project aims to implement a multi-modal sensor fusion system that combines cameras, radar, and LiDAR sensors. By fusing data from multiple sensors and leveraging advanced machine learning algorithms, the goal is to enhance object detection's range, accuracy, and reliability in adverse weather conditions.
+    \item To address these challenges, this project aims to implement a multimodal sensor fusion system that combines cameras, radar, and LiDAR sensors. By fusing data from multiple sensors and leveraging advanced machine learning algorithms, the goal is to enhance object detection's range, accuracy, and reliability in adverse weather conditions.
     
-    \item The focus will also be on synchronizing multi-modal data, processing dense and sparse resolution sensor data, and using a data-driven approach to optimize object detection performance.
+    \item The focus will also be on synchronizing multimodal data, processing dense and sparse resolution sensor data, and using a data-driven approach to optimize object detection performance.
     
     \item However, this project also faces several challenges. For example, different sensors may have different resolutions and sampling rates and may require sophisticated calibration and alignment techniques to ensure the accurate fusion of their data. Furthermore, processing large volumes of sensor data with minimal latency requires efficient and scalable algorithms and hardware architectures.
     
@@ -88,7 +88,7 @@
                 \begin{itemize}
                     \item Refers to the use of previously collected data or publicly available datasets to improve object detection performance.
                 \end{itemize}
-            \item Multi-modal
+            \item Multimodal
                 \begin{itemize}
                     \item Refers to the use of different data modalities to improve object detection performance.
                     \item Examples include sensors such as LiDAR, camera, IMU, GPS, infrared, and radar, with different datatypes such as point clouds, images, and time series data.
@@ -258,9 +258,8 @@
     
     % -> Now talk about radar robustness to adverse weather conditions.
 
-    \item Radar is the third most used sensor in autonomous driving systems. Although millimetre wave radar has been widely used in mass-produced cars for active safety functions such as automatic emergency braking (AEB) and forward collision warning (FCW), it is overlooked in autonomous driving from the perception task point-of-view. Radar seems to be more resilient in weather conditions. According to Ijaz et al. \cite{ijaz2012analysis} and Ismail \cite{gultepe2008measurements}, in rainy conditions, radar exhibits lower attenuation than LiDAR. Radar at 77 GHz demonstrates approximately 3.5 times lower attenuation (10 dB/km) compared to LiDAR at 905 nm (35 dB/km), highlighting its better robustness. Experiments \cite{adams2012robotic} \cite{brooker2007seeing} \cite{xu2022learned} \cite{gourova2017analysis} \cite{zang2019impact} \cite{adams2012robotic} reveal attenuation and backscattering under dust, fog, snow, and light rain are negligible for radar, while the performance of radar degrades under heavy rainfall. However, one of the major drawbacks of radar is its low resolution. Radar point cloud is much sparser than LiDAR, which makes it difficult to use in perception tasks.
+    \item Radar is the third most crucial sensor in autonomous driving systems and is widely used in mass-produced cars for active safety functions, such as automatic emergency braking (AEB) and forward collision warning (FCW). However, its significance is often overlooked from the perspective of perception tasks in autonomous driving. Radar appears to be more resilient in inclement weather conditions than other sensors commonly used in autonomous driving. As reported by Ijaz et al. \cite{ijaz2012analysis} and Ismail \cite{gultepe2008measurements}, radar exhibits lower attenuation in rainy conditions than LiDAR. The attenuation of radar at 77 GHz is approximately 3.5 times lower (10 dB/km) than that of LiDAR at 905 nm (35 dB/km), demonstrating better robustness. Multiple experiments \cite{adams2012robotic, brooker2007seeing, xu2022learned, gourova2017analysis, zang2019impact} have revealed that attenuation and backscattering under dust, fog, snow, and light rain are negligible for radar, while its performance degrades under heavy rainfall. However, one of the significant drawbacks of radar is its low resolution, which makes it difficult to use in perception tasks. The radar point cloud is much sparser than LiDAR, limiting its usability. Recently, the next generation of 4D radar has emerged, which can provide denser points compared to conventional radar sensors.
     % radar exhibits lower attenuation than LiDAR. Radar at 77 GHz demonstrates approximately 3.5 times lower attenuation (10 dB/km) compared to LiDAR at 905 nm (35 dB/km), highlighting its better robustness.
-
 
     % Summary of all 3 sensors in adverse weather conditions:
     % Adverse weather conditions, such as heavy rain, snow, and fog, can be a significant threat to safe driving. Different sensors operate in different electromagnetic wavebands, thus having different robustness to environments. A comparison of the weather effects on different sensors can be found in [217]. Visual perception is susceptible to blur, noise, and brightness distortions [218,219]. In adverse weather, LiDAR suffers from reduced detection range and blocked view in powder snow [220], heavy rain [221], and strong fog [221]. In contrast, radar is more robust under adverse weather. The effect of weather on radar can be divided into attenuation and backscattering [222]. The attenuation effect decreases the received power of the signal, and the backscattering effect increases the interference at the receiver. Experiments [43,223–225] reveal attenuation and backscattering under dust, fog, and light rain are negligible for radar, while the performance of radar degrades under heavy rainfall.
@@ -303,12 +302,36 @@
     \item There are studies out there that use de-hazing techniques to remove the bad effects fro adverse weather. While physical priors were previously used \cite{tan2008visibility} \cite{tarel2009fast}, data-driven methods using deep learning have been introduced. However, deep de-hazing models have high computational complexity and are unsuitable for ultra-high-definition images. Chen et al. \cite{chen2021psd} found that models trained on synthetic images do not generalize well to real-world hazy images, while Zhang et al. \cite{zhang2021learning} used temporal redundancy to perform video de-hazing and collected a dataset of real-world hazy and haze-free videos. Although collecting pairs of hazy and haze-free ground-truth images is challenging, professional haze/fog generators exist to simulate real-world conditions \cite{musat2021multi} \cite{timofte2018ntire}.
 
     \item The rapid developments of autonomous driving especially in adverse weather conditions benefit a lot from the availability of simulation platforms and experimental facilities like fog chambers or test roads. Virtual platforms like the well-known CARLA \cite{dosovitskiy2017carla} simulator, enable researchers to construct custom-designed complex road environments and non-ego participants with infinite scenarios where it would be extremely hard and costly in real field experiments. Moreover, for weather conditions, the appearing of each kind of weather especially season-related or extreme climates related is not on call at all times. For example, it’s impossible for tropical areas to have the opportunity to do snow tests; and natural rain showers might not be long enough to collect experimental data. Most importantly, adverse conditions are usually dangerous for driving and subjects always face safety threats in normal field tests, while absolute zero risks are something that simulators can guarantee \cite{Zhang2021Dec}.
-
     
+    % -> somewhere talk about multimodal sensor fusion on synthetic data.
+    \item Few researchers have explored synthetic data generation for adverse weather conditions using GAN-based techniques from clean weather dataset eg. KITTI \cite{geiger2012we}, Cityscapes \cite{cordts2016cityscapes}, etc \cite{sun2021multi} \cite{zheng2020forkgan} \cite{lee2022perception}.
+    % \item Deficits or limitations of the synthetic data generation for adverse weather: these methods are mainly evaluated on rendered synthetic fog/rain images and a few real images assuming specific fog/rain models. It is thus unclear how these algorithms would be proceeding on various adverse weather conditions and how the progress could be measured in the wild \cite{hassaballah2020vehicle}.
+
     % -> so some new dataset required. talk about some new datasets with adverse weather conditions.
-    % -> talk about multi-modal sensor fusion on these new datasets.
-    % -> somewhere talk about multi-modal sensor fusion on synthetic data.
-    % -> more recent work towards multi-modal sensor fusion on real data with adverse weather conditions.
+    \item Most of the deep multimodal perception methods are based on supervised learning. Therefore, multimodal datasets with labeled ground-truth are required for training such deep neural networks. There are several multimodal datasets available, however, most of these datasets are collected under clear weather conditions. The datasets collected under adverse weather conditions are limited. The following are some of the multimodal datasets for testing the performance of deep multimodal perception methods in adverse weather conditions. Out of all the datasets, only a recently released K-Radar \cite{paek2022k} has the 4D radar sensor. Here C-R-L-N-F refers to Camera, Radar, LiDAR, and Near-infrared amd Far-infrared sensors, respectively.
+
+
+    \begin{table}[h]
+        \centering
+        \caption{List multimodal datasets with adverse weather conditions}
+        \label{tab:my-table}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Name}       & \textbf{Sensors} & \textbf{Link} & \textbf{Year} \\ \hline
+        DENSE               & CRLNF            & \cite{bijelic2020seeing}          & 2020          \\ \hline
+        EU Long-term        & CRL              & \cite{yan2020eu}          & 2020          \\ \hline
+        nuScenes            & CRL              & \cite{caesar2020nuscenes}          & 2020          \\ \hline
+        The Oxford RobotCar & CRL              & \cite{barnes2020oxford}          & 2020          \\ \hline
+        RADIATE             & CRL              & \cite{sheeny2021radiate}          & 2021          \\ \hline
+        K-Radar             & CRL              & \cite{paek2022k}          & 2022          \\ \hline
+        aiMotive            & CRL              & \cite{matuszka2022aimotive}          & 2022          \\ \hline
+        Boreas              & CRL              & \cite{burnett2022boreas}          & 2022          \\ \hline
+        WADS                & CRLNF            & \cite{kurup2022winter}          & 2023          \\ \hline
+        \end{tabular}
+    \end{table}
+    
+    % -> talk about multimodal sensor fusion on these new datasets.
+    % -> more recent work towards multimodal sensor fusion on real data with adverse weather conditions.
 
     \item C-R Fusion:
     \cite{Nobis2020May}
@@ -324,15 +347,9 @@
         \item Showed baseline network only, and mAP still 41.1\%
         \item But not compared with other multi-modal architectures and does not use advanced NN techniques 
     \end{itemize}
-        
-    % - Few researchers have explored synthetic data generation for adverse weather conditions using GAN-based techniques from clean weather dataset eg. KITTI, Cityscapes, etc. 
-    %     - https://www.semanticscholar.org/paper/Multi-Target-Domain-Adaptation-via-Unsupervised-for-Sun-Chen/79499b64128468b436291e04aa76bebd1e69b689
-    %     - https://www.semanticscholar.org/paper/ForkGAN%3A-Seeing-into-the-Rainy-Night-Zheng-Wu/1cd2d08fded9446f49191a185671f3f73bdc83a7 
-    %     - https://www.semanticscholar.org/paper/Perception-Friendly-Video-Enhancement-for-Driving-Lee-Ko/bccd7f4bb3502773e91b27a02db07c727bb0a1ba
-    %     - However, these methods are mainly evaluated on rendered synthetic fog/rain images and a few real images assuming specific fog/rain models. It is thus unclear how these algorithms would be proceeding on various adverse weather conditions and how the progress could be measured in the wild.
-    %        - https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9184996
     
-    %  - Problem with Camera and LiDAR sensors: (reference: https://www.semanticscholar.org/paper/RADIATE%3A-A-Radar-Dataset-for-Automotive-Perception-Sheeny-Pellegrin/fde35ee9b345265fc26339148d440e1139ae10ae)
+    %   Problem with Camera and LiDAR sensors: 
+        % (reference: https://www.semanticscholar.org/paper/RADIATE%3A-A-Radar-Dataset-for-Automotive-Perception-Sheeny-Pellegrin/fde35ee9b345265fc26339148d440e1139ae10ae)
         %       - Camera and LiDAR are the two primary perceptual sensors that are usually adopted. However, since they are visible spectrum sensors, their data is affected dramatically by bad weather conditions, causing attenuation, multiple scattering and turbulence [4]–[8].
         %       - [4] M. Pfennigbauer, C. Wolf, J. Weinkopf, and A. Ullrich, “Online waveform processing for demanding target situations,” in Laser Radar Technology and Applications XIX; and Atmospheric Propagation XI, vol. 9080. International Society for Optics and Photonics, 2014, p. 90800J. 
                 % [5] C. Sakaridis, D. Dai, and L. Van Gool, “Semantic foggy scene understanding with synthetic data,” International Journal of Computer Vision, vol. 126, no. 9, pp. 973–992, Sep 2018. [Online]. Available: https://doi.org/10.1007/s11263-018-1072-8 
@@ -444,7 +461,7 @@
         \item How to fuse camera + 4D radar data
     \end{itemize}
     
-    \item Fusion of spatial and temporal information from multi-modal sensors
+    \item Fusion of spatial and temporal information from multimodal sensors
 
     \item If required, use CARLA or other simulators to validate the performance of a model 
     
@@ -515,7 +532,7 @@ Make sure to include the writing of your report throughout the whole project, no
     \begin{itemize}
         \item Note: CARLA simulator doesn't support 4D radar sensor
     \end{itemize}
-    \item Utilizing spatial and temporal information from multi-modal sensors
+    \item Utilizing spatial and temporal information from multimodal sensors
     
     % ############################
     % Future Work
