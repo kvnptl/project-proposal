@@ -542,16 +542,62 @@
 \section{Project Plan}
 
 \subsection{Work Packages}
-\emph{Planning is the replacement of randomness by error.} (Einstein). Very much like you would never start a longer journey without a detailed travel plan, you should not start a project without a carefully though out work plan. A work package is a logical decomposition of a larger piece of work into smaller parts following a ``divide and conquer" strategy. It is very specific to the problem that you are going to address. Refrain from a rather generic decomposition. If your work plan looks similar to those of your school mates, which may address completely different problems then you have not thought carefully enough about how you approach the problem. It is ok to have two generic work packages \emph{Literature Study} and \emph{Project Report}. Discuss your work packages in the ASW seminar.
+% \emph{Planning is the replacement of randomness by error.} (Einstein). Very much like you would never start a longer journey without a detailed travel plan, you should not start a project without a carefully though out work plan. A work package is a logical decomposition of a larger piece of work into smaller parts following a ``divide and conquer" strategy. It is very specific to the problem that you are going to address. Refrain from a rather generic decomposition. If your work plan looks similar to those of your school mates, which may address completely different problems then you have not thought carefully enough about how you approach the problem. It is ok to have two generic work packages \emph{Literature Study} and \emph{Project Report}. Discuss your work packages in the ASW seminar.
 
-The bare minimum will include the following packages:
+% The bare minimum will include the following packages:
 \begin{enumerate}
-    \item[WP1] Literature Study
-    \item[WP2] ...
-    \item[WP3] ...
-    \item  ...
-    \item[WPy] Evaluation of approach and comparison with similar approaches
-    \item[WPz] Project Report
+    
+      \item[WP1] Literature Study
+      \begin{itemize}
+            
+            \item[WP1.1] Conduct a comprehensive literature review of state-of-the-art methods for object detection under adverse weather conditions using multiple modalities
+            \item[WP1.2] Analyze and compare various fusion strategies for exploiting the complementary characteristics of different sensors 
+            \item[WP1.3] Search for suitable public datasets with adverse weather conditions and multimodal sensors data
+            \item[WP1.4] (tentative) Investigate the fusion of spatial and temporal information from multimodal sensors
+            \item[WP1.5] (tentative) Survey the use of simulators to validate the performance of multimodal object detection models under adverse weather conditions
+            
+      \end{itemize}
+
+
+      \item[WP2] Data Collection and Preparation
+      \begin{itemize}
+            
+            \item[WP2.1] Acquire the necessary datasets for multimodal object detection under adverse weather conditions, such as K-radar, DENSE, and aiMotive
+            \item[WP2.2] Develop tools for pre-processing and augmenting the datasets to enhance the performance of the models
+            \item[WP2.3] Perform statistical analysis to identify the main characteristics and challenges of the datasets, including data imbalance and class imbalance
+            
+      \end{itemize}
+
+      \item[WP3] Model Design and Implementation
+      \begin{itemize}
+            
+            \item[WP3.1] Design and implement a multimodal object detection model that integrates camera, LiDAR, and radar data
+            \item[WP3.2] Investigate various fusion strategies, such as concatenation, mixture of experts, attention-based fusion etc, to  determine the most effective approach
+            \item[WP3.3] Explore deep learning architectures, such as CNNs, RNNs, and Transformers, to improve the performance of the multimodal model
+            \item[WP3.4] Optimize the model's hyperparameters and train the model on the acquired datasets
+      
+      \end{itemize}
+      
+      \item[WP4] Model Evaluation and Validation
+      \begin{itemize}
+            
+            \item[WP4.1] Evaluate the performance of the developed multimodal object detection model on the acquired datasets under adverse weather conditions
+            \item[WP4.2] (tentative) Validate the performance of the model using simulators, such as CARLA, to generate various scenarios and test the robustness of the model
+            \item[WP4.3] Compare the proposed model's results to existing state-of-the-art or baseline methods and analyze the strengths and weaknesses of each approach
+            \item[WP4.4] Identify the limitations of the proposed model and suggest possible future improvements
+            
+      \end{itemize}
+      
+      
+      \item[WP5] Project Report
+      \begin{itemize}
+            
+            \item[WP5.1] Write a detailed report that includes the research problem, objectives, methodology, results, and conclusion
+            \item[WP5.2] Present the research findings in a clear and concise manner, highlighting the contributions and limitations of the proposed multimodal object detection model
+            \item[WP5.3] Discuss possible future research directions based on the outcomes of the study
+            
+      \end{itemize}
+
 \end{enumerate}
 
 \subsection{Milestones}
