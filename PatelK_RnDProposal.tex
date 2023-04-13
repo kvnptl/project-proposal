@@ -290,7 +290,7 @@
 
       % 2020
       \item Bijelic et al. \cite{bijelic2020seeing} from Mercedes-Benz AG conducted a study on improving detection performance in adverse weather conditions using a deep multimodal sensor fusion approach. The authors equipped their test vehicle with various sensors, including stereo RGB cameras, a NIR camera, a 77 GHz radar, two LiDARs, an FIR camera, a weather station, and a road-friction sensor. They proposed an entropy-steered fusion approach where regions with low entropy were attenuated while entropy-rich regions were amplified during feature extraction. The exteroceptive sensor data were concatenated and trained using clear weather data, demonstrating strong adaptation to unseen adverse weather data. The fusion network was designed to generalize across different scenarios, and all the sensor data were projected into the camera coordinate system to ensure consistency. The fused detection performance outperformed LiDAR or image-only approaches under fog conditions.
-      \item Bijelic et al. \cite{bijelic2020seeing} also provided the SeeingThroughFog dataset for further research on multimodal sensor fusion in adverse weather conditions. This dataset comprises 10,000 km of driving data in Northern Europe, recorded during February and December 2019, under varying weather and illumination conditions. The dataset includes annotations for 5.5 k clear weather frames, 1 k dense fog frames, 1 k light fog frames, and 4 k frames captured in snow/rain.
+      \item Bijelic et al. \cite{bijelic2020seeing} also provided the SeeingThroughFog or DENSE dataset for further research on multimodal sensor fusion in adverse weather conditions. This dataset comprises 10,000 km of driving data in Northern Europe, recorded during February and December 2019, under varying weather and illumination conditions. The dataset includes annotations for 5.5 k clear weather frames, 1 k dense fog frames, 1 k light fog frames, and 4 k frames captured in snow/rain.
             % \item TODO: add images
             % \item Deficits or limitations of Bijelic et al. \cite{bijelic2020seeing}:One of the problems with radar signal transformations exploited by all of the methods mentioned above is that some essential radar information could be lost while conducting the projections. Besides, some of the spatial information from the original radar signals could not be utilized. The blemish in this modality is that the amount of sensors exceeds the normal expectation of an ADS system. More sensors require more power supply and connection channels which is a burden to the vehicle itself and proprietary weather sensors are not exactly cost-friendly. Even though such an algorithm is still real-time processed, given the bulk amount of data from multiple sensors, the response and reaction time becomes something that should be worried about \cite{Zhang2021Dec}
             % \item possible improvements: The network architecture can be improved by using transformer-based architectures. The author mentioned about the robustness of radar in adverse weather conditions, but the performance of the radar is only limited by the low azimuth and elevation resolution. The performance of the radar can be improved by using a 4D radar, which has a higher resolution compared to the 2D radar used in this work.
@@ -492,29 +492,50 @@
 \section{Problem Statement}
 \begin{itemize}
 
-    % \item Which of the deficits are you going to solve?
+      % ########################################################
+      % ###################################################
+      % BOOKMARK: 
+      % 1. Start writing problem statement
+      % 2. Rephrase the related work paragraphs
+      % 3. Write the project plan
+      % 4. Generate Gantt chart
+      % ########################################################
+      % ########################################################
 
-    % \item What is your intended approach?
+      % \item Which of the deficits are you going to solve?
+      % \item What is your intended approach?
+      % \item How will you compare you approach with existing approaches?
 
-    % \item How will you compare you approach with existing approaches?
+      % \item A thorough analysis and practical implementation of state-of-the-art methods for object detection using multiple modalities including but not limited to camera, LiDAR, and radar
+      % \item In this research project, the aim is to conduct a thorough analysis and practical implementation of state-of-the-art methods for object detection using multiple modalities, which may include but are not limited to camera, LiDAR, and radar.
+      \item Object detection using multiple modalities has become a topic of increasing interest in recent years. However, despite the wealth of research in this area, there is still a lack of comprehensive analysis and practical implementation of state-of-the-art methods udner adverse weather conditions. Therefore, the primary objective of this research project is to provide a thorough analysis and practical implementation of state-of-the-art methods for object detection using multiple modalities, including but not limited to camera, LiDAR, and radar.
 
-    \item A thorough analysis and practical implementation of state-of-the-art methods for object detection using multiple modalities including but not limited to camera, LiDAR, and radar
+      % \item Determining an appropriate fusion strategy to exploit the complementary characteristics of various sensors
+      %       \begin{itemize}
+      %             \item How to fuse camera + 4D radar data
+      %       \end{itemize}
+      % \item It is essential to determine an appropriate fusion strategy to exploit the complementary characteristics of these various sensors, which involves deciding how to fuse camera and 4D radar data effectively.
+      \item One of the significant challenges in multimodal object detection is determining an appropriate fusion strategy to exploit the complementary characteristics of various sensors. For instance, fusing camera and 4D radar data is a critical research question that needs to be addressed. This research project will focus on identifying an optimal fusion strategy that leverages the strengths of each sensor while minimizing their weaknesses.
 
-    \item Determining an appropriate fusion strategy to exploit the complementary characteristics of various sensors
-          \begin{itemize}
-              \item How to fuse camera + 4D radar data
-          \end{itemize}
+      % \item Fusion of spatial and temporal information from multimodal sensors
+      % \item Another critical aspect of this research project is the fusion of spatial and temporal information from multimodal sensors. By leveraging the strengths of different modalities, the aim is to enhance the overall performance of the object detection system.
+      \item (tentative) Fusing spatial and temporal information from multimodal sensors is another important aspect that will be investigated in this research project. Most existing multimodal fusion algorithms focus on fusing spatial information, but temporal information is equally important. Therefore, this project aims to develop methods that can fuse both spatial and temporal information effectively.
 
-    \item Fusion of spatial and temporal information from multimodal sensors
+      % \item If required, use CARLA or other simulators to validate the performance of a model
+      % \item If required, CARLA or other simulators may be used to validate the performance of a model. This is necessary as simulation-based approaches provide a controlled environment and enable the evaluation of the system's performance under various adverse weather conditions.
+      % \item To validate the performance of a model, this research project may use simulators such as CARLA. Simulators are useful for generating a wide variety of scenarios, which can be used to test the robustness of a model under various conditions.
+      \item To validate the performance of a model, simulators such as CARLA may be utilized if required. Simulations provide a controlled environment and enable the evaluation of the system's performance under diverse and adverse weather conditions, which is essential for testing the robustness of the model.
 
-    \item If required, use CARLA or other simulators to validate the performance of a model
-
-    \item Conduct experiments and compare outcomes with various models and adverse weather conditions datasets
-          \begin{itemize}
-              \item Datasets: K-radar\cite{Paek2022Jun}, DENSE\cite{bijelic2020seeing}, aiMotive\cite{Matuszka2022Nov}
-          \end{itemize}
-
-
+      % \item Conduct experiments and compare outcomes with various models and adverse weather conditions datasets
+      %       \begin{itemize}
+      %             \item Datasets: K-radar\cite{Paek2022Jun}, DENSE\cite{bijelic2020seeing}, aiMotive\cite{Matuszka2022Nov}
+      %       \end{itemize}
+      % \item Finally, this research project aims to conduct experiments and compare the outcomes with various models and using adverse weather conditions datasets. The datasets selected for evaluation include K-radar \cite{Paek2022Jun}, DENSE \cite{bijelic2020seeing}, and aiMotive \cite{matuszka2022aimotive}. It also is essential to compare and evaluate the performance of the developed system with other state-of-the-art models using these datasets.
+      % \item Finally, this research project will conduct experiments and compare outcomes with various models on adverse weather condition datasets, including but not limited to K-radar \cite{Paek2022Jun}, DENSE \cite{bijelic2020seeing}, and aiMotive \cite{Matuszka2022Nov} datasets. These datasets are recently been released, and they will be used to evaluate the performance of the proposed methods under adverse weather conditions.
+      % \item The results will be compared to existing state-of-the-art methods, and the strengths and weaknesses of each approach will be analyzed.
+      \item This research project aims to conduct experiments to evaluate the performance of the proposed methods under adverse weather conditions. To achieve this, the outcomes will be compared with various models on recently released datasets such as K-radar \cite{Paek2022Jun}, DENSE \cite{bijelic2020seeing}, and aiMotive \cite{Matuszka2022Nov}. These datasets are deemed suitable for the purpose of analyzing the performance of the proposed methods under challenging conditions.
+      
+      \item The comparative analysis of the results will include an assessment of the strengths and weaknesses of each approach with respect to existing state-of-the-art methods.
 
 \end{itemize}
 
