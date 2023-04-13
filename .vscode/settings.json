@@ -6,6 +6,7 @@
         "Cityscapes",
         "datatypes",
         "exteroceptive",
+        "hyperparameters",
         "KITTI",
         "multimodal",
         "Nobis",
