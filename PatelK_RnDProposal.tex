@@ -54,6 +54,20 @@
     \item This scenario highlights the importance of object detection in adverse weather conditions for self-driving cars. Visual cameras, which are commonly used for object detection, may be distorted or obscured by rain, fog, snow, or low light, making it difficult to accurately detect objects on the road \cite{yurtsever2020survey} \cite{carballo2020libre} \cite{mcity2020}.
 
     \item To address these challenges, this project aims to implement a multimodal sensor fusion system that combines cameras, radar, and LiDAR sensors. By fusing data from multiple sensors and leveraging advanced machine learning algorithms, the goal is to enhance object detection's range, accuracy, and reliability in adverse weather conditions.
+    
+      \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{images/sensors_intro_1.png}
+            \caption{Sensors modality characteristics \cite{Sensor_modality_characteristics_1}}
+            \label{fig:sensors_intro_1}
+      \end{figure}
+
+      \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.7\textwidth]{images/sensors_intro_2.png}
+            \caption{Sensors modality characteristics \cite{Sensor_modality_characteristics_1}}
+            \label{fig:sensors_intro_2}
+      \end{figure}
 
     \item The focus will also be on synchronizing multimodal data, processing dense and sparse resolution sensor data, and using a data-driven approach to optimize object detection performance.
 
@@ -255,12 +269,30 @@
 
       \item For a typical perception system, the most common sensor is camera, and it's actually the one element that is absolutely not replaceable in autonomous driving systems. But it's also one of the most vulnerable sensors to adverse weather conditions. A camera in rain, regardless of however high resolution, can be easily incapacitated by a single water drop on the emitter or lens \cite{mardirosian2021LiDAR}. Heavy snow or hail could fluctuate the image intensity and obscure the edges of the pattern of a certain object in the image or video which leads to detection failure \cite{zang2019impact}. A particular weather phenomenon, strong light, directly from the sun or artificial light source like light pollution from a skyscraper may also cause severe trouble to cameras \cite{acarballo2020libre}.
             % (TODO: if possible add a picture of a camera in rain)
+            \begin{figure}[h]
+                  \centering
+                  \includegraphics[width=0.5\textwidth]{images/rain_droplet.png}
+                  \caption{Van occluded by a water droplet on the lens \cite{Nobis2020May}}
+                  \label{fig:camera_in_rain}
+            \end{figure}
 
       % \item Second most common sensor available on autonomous driving systems is LiDAR. For the most common weather, rain, when it’s not extreme like a normal rainy day, it doesn’t affect LiDARs that much according to the research of Fersch et al. \cite{fersch2016influence} on small aperture LiDAR sensors. More serious harm of rain happens when it becomes heavy or unbridled. Rains with a high and non-uniform precipitation rate would most likely form lumps of agglomerate fog and create fake obstacles to the LiDARs. Hasirlioglu et al. \cite{hasirlioglu2016modeling} proved that the signal reflection intensity drops significantly in a rain rate of more than 40 mm/hr. According to Zhang et al. \cite{Zhang2021Dec}, dense fog or dense smoke cause the same effect as the heavy rain. As mentioned for camera, a strong light also affect LiDAR sensors in extreme conditions \cite{acarballo2020libre}.
       \item LiDAR is the second most commonly used sensor in autonomous driving systems. Fersch et al. \cite{fersch2016influence} suggest that for moderate levels of rainfall, LiDAR sensors with small apertures are not significantly affected. However, heavy and non-uniform precipitation rates can create clusters of fog that can lead to erroneous obstacle detection by the LiDARs. Hasirlioglu et al. \cite{hasirlioglu2016modeling} demonstrated that a rainfall rate exceeding 40 mm/hr leads to a significant drop in signal reflection intensity. Dense fog and smoke, as well as strong light, can also affect LiDAR sensors in adverse conditions \cite{Zhang2021Dec} \cite{acarballo2020libre}.
+            \begin{figure}[h]
+                  \centering
+                  \includegraphics[width=0.9\textwidth]{images/lidar_issues.png}
+                  \caption{LiDAR performance test \cite{Zhang2021Dec}}
+                  \label{fig:lidar}
+            \end{figure}
 
       % ===> Now talk about radar robustness to adverse weather conditions.***
       \item Radar is the third most crucial sensor in autonomous driving systems and is widely used in mass-produced cars for active safety functions, such as automatic emergency braking (AEB) and forward collision warning (FCW). However, its significance is often overlooked from the perspective of perception tasks in autonomous driving. Unlike RGB cameras that use visible light bands (384$\sim$769 THz) and LiDARs that use infrared bands (361$\sim$331 THz), Radars use relatively longer wavelength radio bands (77$\sim$81 GHz), resulting in robust measurements in adverse weathers \cite{Paek2022Jun}. As reported by Ijaz et al. \cite{ijaz2012analysis} and Ismail \cite{gultepe2008measurements}, radar exhibits lower attenuation in rainy conditions than LiDAR. The attenuation of radar at 77 GHz is approximately 3.5 times lower (10 dB/km) than that of LiDAR at 905 nm (35 dB/km), demonstrating better robustness. Multiple experiments \cite{adams2012robotic, brooker2007seeing, xu2022learned, gourova2017analysis, zang2019impact} have revealed that attenuation and backscattering under dust, fog, snow, and light rain are negligible for radar, while its performance degrades under heavy rainfall. However, one of the significant drawbacks of radar is its low resolution, which makes it difficult to use in perception tasks. The radar point cloud is much sparser than LiDAR, limiting its usability. Recently, the next generation of 4D radar has emerged, which can provide denser points compared to conventional radar sensors.
+            \begin{figure}[h]
+                  \centering
+                  \includegraphics[width=0.8\textwidth]{images/lidar_in_fog.png}
+                  \caption{\centering 1st row: clear weather condition, 2nd row: with fog. Shows that lidar affects by the fog but radar intensity remains the same \cite{bijelic2020seeing}}
+                  \label{fig:lidar_in_fog}
+            \end{figure}
           % radar exhibits lower attenuation than LiDAR. Radar at 77 GHz demonstrates approximately 3.5 times lower attenuation (10 dB/km) compared to LiDAR at 905 nm (35 dB/km), highlighting its better robustness.
 
           % Summary of all 3 sensors in adverse weather conditions:
@@ -298,8 +330,14 @@
 
       % 2020
       \item Bijelic et al. \cite{bijelic2020seeing} from Mercedes-Benz AG conducted a study on improving detection performance in adverse weather conditions using a deep multimodal sensor fusion approach. The authors equipped their test vehicle with various sensors, including stereo RGB cameras, a NIR camera, a 77 GHz radar, two LiDARs, an FIR camera, a weather station, and a road-friction sensor. They proposed an entropy-steered fusion approach where regions with low entropy were attenuated while entropy-rich regions were amplified during feature extraction. The exteroceptive sensor data were concatenated and trained using clear weather data, demonstrating strong adaptation to unseen adverse weather data. The fusion network was designed to generalize across different scenarios, and all the sensor data were projected into the camera coordinate system to ensure consistency. The fused detection performance outperformed LiDAR or image-only approaches under fog conditions.
-      \item Bijelic et al. \cite{bijelic2020seeing} also provided the SeeingThroughFog or DENSE dataset for further research on multimodal sensor fusion in adverse weather conditions. This dataset comprises 10,000 km of driving data in Northern Europe, recorded during February and December 2019, under varying weather and illumination conditions. The dataset includes annotations for 5.5 k clear weather frames, 1 k dense fog frames, 1 k light fog frames, and 4 k frames captured in snow/rain.
             % \item TODO: add images
+            \begin{figure}[h]
+                  \centering
+                  \includegraphics[width=0.4\textwidth]{images/seeing_through_fog.png}
+                  \caption{Highlighting the significance of fusing multimodal sensor data \cite{bijelic2020seeing}}
+                  \label{fig:seeing_through_fog}
+            \end{figure}
+      \item Bijelic et al. \cite{bijelic2020seeing} also provided the SeeingThroughFog or DENSE dataset for further research on multimodal sensor fusion in adverse weather conditions. This dataset comprises 10,000 km of driving data in Northern Europe, recorded during February and December 2019, under varying weather and illumination conditions. The dataset includes annotations for 5.5 k clear weather frames, 1 k dense fog frames, 1 k light fog frames, and 4 k frames captured in snow/rain.
             % \item Deficits or limitations of Bijelic et al. \cite{bijelic2020seeing}:One of the problems with radar signal transformations exploited by all of the methods mentioned above is that some essential radar information could be lost while conducting the projections. Besides, some of the spatial information from the original radar signals could not be utilized. The blemish in this modality is that the amount of sensors exceeds the normal expectation of an ADS system. More sensors require more power supply and connection channels which is a burden to the vehicle itself and proprietary weather sensors are not exactly cost-friendly. Even though such an algorithm is still real-time processed, given the bulk amount of data from multiple sensors, the response and reaction time becomes something that should be worried about \cite{Zhang2021Dec}
             % \item possible improvements: The network architecture can be improved by using transformer-based architectures. The author mentioned about the robustness of radar in adverse weather conditions, but the performance of the radar is only limited by the low azimuth and elevation resolution. The performance of the radar can be improved by using a 4D radar, which has a higher resolution compared to the 2D radar used in this work.
 
@@ -356,6 +394,13 @@
                   WADS                & CRLNF            & \cite{kurup2022winter}      & 2023          \\ \hline
               \end{tabular}
           \end{table}
+
+          \begin{figure}[h]
+            \centering
+            \includegraphics[width=1.0\textwidth]{images/all_sensors_in_adverse_weather.png}
+            \caption{\centering Samples of K-Radar datasets for various weather conditions \cite{Paek2022Jun}}
+            \label{fig:all_sensors_in_adverse_weather}
+          \end{figure}
 
           % -> talk about multimodal sensor fusion on these new datasets.
           % -> more recent work towards multimodal sensor fusion on real data with adverse weather conditions.
