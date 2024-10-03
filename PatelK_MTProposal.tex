@@ -33,6 +33,14 @@
 
       %     \item Imagine driving on a winding mountain road at night, with fog and rain obscuring your view, your vehicle's self-driving system struggles to detect objects ahead due to the challenging weather conditions. Suddenly, a deer jumps out in front of your car, causing the system to issue an alert and apply the brakes in time to avoid a collision.
       \item TODO: Put a story or a very basic scenario here to make the reader understand the problem.
+      \item Keep it in industrial context
+      \item Start with privacy issue with the centralized training especially in the consumer AI context
+      \item Issue with scaling DL models
+      \item Then how FL solves that problem, put a FL workflow diagram
+      \item FL settings, what is our focus in that
+      \item Industrial context
+      \item Applicable to broader fields, medical, finance, surveillance
+      \item Laws enforcing FL, put those papers
 
             % TODO: add as many as good images possible in the doc
             % \begin{figure}[h]
@@ -69,6 +77,11 @@
       % ***********************
       \item What have other people done to solve the problem?
       \item You should reference and briefly discuss at least the ``top twelve'' related works
+      \item Rising research trend for FL, put that fig with papers over years
+      \item But mostly theoretical aspect on benefits of FL and its comparison with some toy datasets 
+      \item FL+CV, only classification is covered in most of the papers, show that paper published graphs
+      \item A very few FL+OD papers, that to even in practical and application oriented are close to none
+      
             % ***********************
 \end{itemize}
 
@@ -80,6 +93,8 @@
       \item List the deficits that you have discovered in the related work and explain them such that a person who is not deep into the technical details can still understand them.
             For each deficit, provide at least two references
       \item You should reference and briefly discuss at least the ``top twelve'' related works
+      \item None in the 3D depth image domain or intensity images
+      \item Here, input data itself prioritize privacy especially when it comes to person recognition
             % ***********************
 \end{itemize}
 
@@ -99,6 +114,12 @@
       \item Which of the deficits are you going to solve?
       \item What is your intended approach?
       \item How will you compare you approach with existing approaches?
+      \item FL+OD working pipeline, on a real world dataset
+      \item A non-RGB based dataset
+      \item Implementation on edge-devices
+      \item Compare FL frameworks and choose 1 or 2
+      \item Check FL aggregation methods
+      \item Analyze compute resource constrained OD models
 
             % \item Object detection using multiple modalities has become a topic of increasing interest in recent years. However, despite the wealth of research in this area, there is still a lack of comprehensive analysis and practical implementation of state-of-the-art methods under adverse weather conditions. Therefore, the primary objective of this research project is to provide a thorough analysis and practical implementation of state-of-the-art methods for object detection using multiple modalities, including but not limited to camera, LiDAR, and radar.
 
@@ -194,10 +215,10 @@
 \subsubsection*{Minimum Viable}
 \begin{itemize}
       % \item Project results required to get a satisfying or sufficient grade.
-      \item Conduct a comprehensive literature review on state-of-the-art multimodal object detection methods and their fusion strategies
-      \item Develop and test existing models for object detection
-      \item Perform a comparative analysis of at least two methods on one dataset
-      \item Produce a project report that summarizes the work done and the results obtained
+      \item Conduct a comprehensive literature review on state-of-the-art FL-based object detection methods
+      \item Develop and test existing models for object detection, reproduce paper results
+      \item Perform a comparative analysis of at least two methods on custom dataset
+      \item Produce a detailed project report that summarizes the work done and the obtained results
             %     \item Successfully detect a single class of objects, such as cars, pedestrians, cyclists, or trucks.
 \end{itemize}
 
@@ -206,9 +227,10 @@
       % \item Project results required to get a good grade.
       %     \item Compare with more advance methods with baseline methods on different datasets
       %     \item Compare with more advance methods with baseline methods
-      \item Compare the performance of more advanced methods with the baseline methods
+      \item Comparison of traditional vs FL-based OD performance analysis
       \item Complete the final development and testing of the model, including comparison with existing state-of-the-art methods and analysis of the strengths and weaknesses of each approach.
       \item Produce a more extensive project report that details the methodology, experimental setup, results, and analysis.
+      \item Working pipeline of FL+OD on 3D depth images (simulated)
             %     \item Successfully detect multiple classes of objects, such as cars, pedestrians, cyclists, or trucks.
 \end{itemize}
 
@@ -222,8 +244,12 @@
       %               \item Note: CARLA simulator doesn't support 4D radar sensor
       %           \end{itemize}
       %     \item Utilize spatial and temporal information from multimodal sensors in the object detection process
-      \item Compare the developed models' performance on one or more additional datasets.
-      \item Propose improvements to the baseline fusion methods.
+      \item Implement FL+OD on edge devices
+      \item (If time permits)
+      \begin{itemize}
+            \item FL+object tracking
+            \item FL+OD+Uncertainty estimation
+      \end{itemize}
 
             % ############################
             % Future Work
