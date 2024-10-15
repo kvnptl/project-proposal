@@ -7,6 +7,7 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{pdflscape}
+\usepackage{svg}
 
 \title{Federated Learning for Object Detection Using 3D Depth Images}
 \author{Kevin Patel}
@@ -106,7 +107,7 @@
       % BOOKMARK: 
       % 1. Start writing problem statement - Pending
       % 2. Rephrase the related work paragraphs - Pending
-      % 3. Write the project plan - Pending
+      % 3. Write the project plan - DONE
       % 4. Generate Gantt chart - Pending
       % ########################################################
       % ########################################################
@@ -137,66 +138,70 @@
 
       \item[WP1] Literature Study
             \begin{itemize}
-
-                  \item[WP1.1] Conduct a comprehensive literature review of state-of-the-art methods for object detection under adverse weather conditions using multiple modalities
-                  \item[WP1.2] Analyze and compare various fusion strategies for exploiting the complementary characteristics of different sensors
-                  \item[WP1.3] Search for suitable public datasets with adverse weather conditions and multimodal sensors data
-                        % \item[WP1.4] (tentative) Investigate the fusion of spatial and temporal information from multimodal sensors
-                        % \item[WP1.5] (tentative) Survey the use of simulators to validate the performance of multimodal object detection models under adverse weather conditions
-
+                  \item[WP1.1] Conduct a comprehensive literature review on state-of-the-art FL-based object detection methods
+                  \item[WP1.2] Analyze existing centralized and FL-based object detection frameworks, focusing on their architectures and performance metrics
+                  \item[WP1.3] Identify key models and techniques to replicate and compare, and document best practices for FL in the context of object detection on 3D depth images
             \end{itemize}
-
 
       \item[WP2] Data Collection and Preparation
             \begin{itemize}
-
-                  \item[WP2.1] Acquire the necessary datasets for multimodal object detection under adverse weather conditions, such as K-radar, DENSE, and aiMotive
-                  \item[WP2.2] Develop tools for pre-processing and augmenting the datasets to enhance the performance of the models
-                  \item[WP2.3] Perform statistical analysis to identify the main characteristics and challenges of the datasets, including data imbalance and class imbalance
-
+                  \item[WP2.1] Generate a custom dataset consisting of 3D depth images suitable for training and testing object detection models
+                  \item[WP2.2] Preprocess the dataset, including data cleaning, augmentation, and handling any data imbalance issues
+                  \item[WP2.3] Develop tools for managing and preparing the dataset for Federated Learning experiments (e.g., partitioning the dataset across simulated nodes)
             \end{itemize}
 
-      \item[WP3] Model Design and Implementation
+      \item[WP3] Model Development and Initial Testing
             \begin{itemize}
-
-                  \item[WP3.1] Design and implement an existing multimodal object detection architectures that integrates camera, LiDAR, and radar data
-                  \item[WP3.2] Investigate various fusion strategies, such as concatenation, mixture of experts, attention-based fusion etc, to  determine the most effective approach
-                  \item[WP3.3] Explore deep learning architectures, such as CNNs, RNNs, and Transformers, to improve the performance of the multimodal model
-                  \item[WP3.4] Optimize the model's hyperparameters and train the model on the acquired datasets
-
+                  \item[WP3.1] Replicate and test existing models from the literature to establish a baseline performance on the custom dataset
+                  \item[WP3.2] Implement the FL-based object detection pipeline, starting with a centralized approach for comparison
+                  \item[WP3.3] Test and evaluate initial models to ensure functionality and establish initial performance benchmarks
             \end{itemize}
 
-      \item[WP4] Model Evaluation and Validation
+      \item[WP4] Comparative Analysis and Performance Evaluation
             \begin{itemize}
-
-                  \item[WP4.1] Evaluate the performance of the developed multimodal object detection model on the acquired datasets under adverse weather conditions
-                        % \item[WP4.2] (tentative) Validate the performance of the model using simulators, such as CARLA, to generate various scenarios and test the robustness of the model
-                  \item[WP4.3] Compare the proposed model's results to existing state-of-the-art or baseline methods and analyze the strengths and weaknesses of each approach
-                  \item[WP4.4] Identify the limitations of the proposed model and suggest possible future improvements
-
+                  \item[WP4.1] Perform a comparative analysis between centralized and FL-based object detection methods, focusing on performance metrics such as accuracy, inference time, and system profile
+                  \item[WP4.2] Evaluate models on the custom dataset and analyze the strengths and weaknesses of each approach
+                  \item[WP4.3] Optimize model performance by tuning hyperparameters, modifying architecture, or adjusting the dataset for improved FL-based results
             \end{itemize}
 
-      \item[WP5] Project Report
+      \item[WP5] Implementation on Edge Devices
             \begin{itemize}
+                  \item[WP5.1] Implement the FL-based object detection model on edge devices, ensuring it runs efficiently under resource constraints (e.g., limited computation, bandwidth)
+                  \item[WP5.2] Test and evaluate the performance of the model on edge devices, measuring factors such as accuracy, inference time, and system profile
+                  \item[WP5.3] Integrate any necessary optimizations for FL-based object detection specifically tailored to edge deployment scenarios
+            \end{itemize}
 
-                  \item[WP5.1] Write a detailed report that includes the research problem, objectives, methodology, results, and conclusion
-                  \item[WP5.2] Present the research findings in a clear and concise manner, highlighting the contributions and limitations of the proposed multimodal object detection model
-                  \item[WP5.3] Discuss possible future research directions based on the outcomes of the study
+      \item[WP6] Advanced Development and Optional Extensions
+            \begin{itemize}
+                  \item[WP6.1] Develop a containerized workflow to facilitate easy deployment of the FL-based object detection pipeline across different environments
+                  \item[WP6.2] If time permits, extend the project by integrating object tracking with FL-based object detection or adding uncertainty estimation capabilities to the models
+            \end{itemize}
 
+      \item[WP7] Project Report and Finalization
+            \begin{itemize}
+                  \item[WP7.1] Write a comprehensive project report detailing the research objectives, methodology, results, and findings
+                  \item[WP7.2] Present a critical analysis of the performance comparison between centralized and FL-based approaches, highlighting contributions, limitations, and future research directions
+                  \item[WP7.3] Prepare the final thesis draft, ensuring clarity and coherence in presenting the experimental outcomes and their implications for FL-based object detection
             \end{itemize}
 
 \end{enumerate}
 
 \subsection{Milestones}
 % Milestones mark the completion of a certain activity or at least a major achievement in an activity. Milestones are also decision points, where you reflect on what you have achieved and what options you have for continuing your work in case you have not achieved what was planned. Above all, milestones have to be measurable. As above, if your milestones are the same as those of your school mates, then you may not have thought carefully enough about how your project shall progress.
-\begin{enumerate}
-      \item[M1] Literature review completed and best practice identified
-      \item[M2] Data collection and preprocessing completed, including cleaning and augmentation
-      \item[M3] Initial model development and testing completed
-      \item[M4] Evaluation and optimization of the model completed
-      \item[M5] Final model development and testing completed, including comparison with existing state-of-the-art methods and analysis of strengths and weaknesses of each approach.
-      \item[M6] Project report completed
-\end{enumerate}
+
+\subsection{Milestones}
+  \begin{enumerate}
+      \item[M1] Comprehensive literature review on state-of-the-art FL-based object detection methods completed, with key models and techniques identified for replication
+      \item[M2] Replication of existing models from relevant literature completed
+      \item[M3] Custom 3D depth image dataset generated and preprocessed (e.g., cleaning, augmentation)
+      \item[M4] Comparative analysis of at least two object detection methods on the custom dataset completed, with detailed performance metrics recorded
+      \item[M5] Development of a working pipeline for FL-based object detection (simulated) on 3D depth images completed
+      \item[M6] Implementation of FL-based object detection on edge devices completed
+      \item[M7] Comparative analysis of centralized vs. FL-based object detection completed, with performance results and key findings documented
+      \item[M8] Final model development and testing completed, including optimization and an in-depth evaluation of strengths and weaknesses
+      \item[M9] Extension of the project with the development of a containerized workflow for easy deployment completed
+      \item[M10] Final project report completed, covering methodology, experimental setup, results, and thorough analysis.
+  \end{enumerate}
 
 \newpage
 \subsection{Project Schedule}
@@ -204,8 +209,9 @@
 % Make sure to include the writing of your report throughout the whole project, not just at the end.
 
 \begin{figure}[h!]
-      \hspace{-8em}
-      \includegraphics[scale=0.75]{images/Gantt_chart_landscape.pdf}
+      % \centering
+      \hspace{-4em}
+      \includegraphics[scale=0.3]{images/Gantt_chart.png}
       \caption{Gantt chart of the project schedule}
       \label{fig:myfigure}
 \end{figure}
@@ -217,6 +223,7 @@
       % \item Project results required to get a satisfying or sufficient grade.
       \item Conduct a comprehensive literature review on state-of-the-art Federated Learning (FL)-based object detection methods
       \item Develop and test existing models to reproduce results from relevant literature
+      \item Generation of a custom dataset consisting of 3D depth images
       \item Perform a comparative analysis of at least two methods on a custom dataset
       \item Produce a detailed project report that summarizes the work done and the obtained results
 
