@@ -27,7 +27,7 @@
 \subsection{Topic of This Thesis}
 \begin{itemize}
       % *************************
-      \item Provide reasonably detailed description of what you intent to do in your R\&D project.
+      \item Provide reasonably detailed description of what you intent to do in your thesis project.
       \item You may also discuss the challenges that you have to address.
       \item Reflect on the profile of the reader and PLEAAAASE, tell a story here and refrain from bombarding the readers with details which they may not be able to appreciate.
       % **************************
@@ -45,14 +45,12 @@
             \begin{itemize}
                   \item \cite{voigt2017eu}
             \end{itemize}
-
-            % TODO: add as many as good images possible in the doc
-            % \begin{figure}[h]
-            %       \centering
-            %       \includegraphics[width=0.7\textwidth]{images/sensors_intro_1.png}
-            %       \caption{Sensors modality characteristics \cite{Sensor_modality_characteristics_1}}
-            %       \label{fig:sensors_intro_1}
-            % \end{figure}
+      \item From \cite{shenaj2023federated}
+      \begin{itemize}
+            \item Large-scale machine learning models deployed in real-world scenarios often require training data sharing on a centralized server, where the actual model optimization takes place. Federated Learning (FL) was initially introduced in \cite{mcmahan2017communication} as an alternative approach to train a global model across multiple devices while preserving the privacy and decentralization of their respective data. \cite{shenaj2023federated}
+            \item In particular, machine learning methods for computer vision heavily rely on collecting and storing a huge amount of annotated image data on a central server. Centralizing such data necessitates the transfer of a significant volume of information, resulting in substantial communication overhead. Moreover, centralized data storage poses risks to user privacy and confidentiality, and recent regulations on data privacy prohibit the uploading of sensitive local data to centralized data centers \cite{voigt2017eu}.
+            \item Federated learning has emerged as a promising solution to address these challenges, as it enables on-device training of visual models. In FL, data remains localized on individual devices, and the collaborative training process involves exchanging model parameters instead of raw data.
+      \end{itemize}
 
 \end{itemize}
 
@@ -86,6 +84,19 @@
       \item FL+CV, only classification is covered in most of the papers, show that paper published graphs
       \item A very few FL+OD papers, that to even in practical and application oriented are close to none
       
+      \item The first seminal paper \cite{mcmahan2017communication} , talks about Federated Learning(FL) as compared to centralized model training. This paper coined the term federated learning. The key focus of this paper privacy preserving machine learning models for consumer mobile devices. The object is to how to leverage the real world user data to train an efficient machine learning model without risking user's privacy. Also discussed difference between decentralized and federated learning.
+      % TODO: add a table decentralized vs federated learning
+      \begin{itemize}
+            \item The experiments proves that FL achieves comparable results to centralized training. The paper presented a basic CNN-based models on two datasets, MNIST and CIFAR10. The results are promising and show that FL learning paradigm can be used to take advantage of the large data and maintain privacy.
+            \item The paper presented federated aggregation algorithm called FedAvg, which aggregates individual clients models at the server-end.
+      \end{itemize}
+      \item Limitations: 
+      \begin{itemize}
+            \item the presented results are on the tiny models and using toy datasets.
+            \item the main task was image classification only
+            \item Entire FL workflow implemnted on a single GPU-powered machine and FL is performed in a simulated fashion.
+      \end{itemize}
+      
             % ***********************
 \end{itemize}
 
@@ -94,12 +105,20 @@
 
 
       % ***********************
-      \item List the deficits that you have discovered in the related work and explain them such that a person who is not deep into the technical details can still understand them.
-            For each deficit, provide at least two references
+      \item List the deficits that you have discovered in the related work and explain them such that a person who is not deep into the technical details can still understand them. 
+      \item For each deficit, provide at least two references
       \item You should reference and briefly discuss at least the ``top twelve'' related works
       \item None in the 3D depth image domain or intensity images
       \item Here, input data itself prioritize privacy especially when it comes to person recognition
-            % ***********************
+      \item Most of the existing work focusing on the image classification task and very few of works explore the object detection task
+      \begin{itemize}
+            \item Even in object detection, the models are old and recent advancement in the detection models are not addressed well
+      \end{itemize}
+      \item Regarding the dataset, many of the work use toy datasets and lack the exploration on the real world dataset.
+      \item Most studies on federated learning focus on its theoretical and communication aspects \cite{acar2021federated}, \cite{lu2022federated}, \cite{li2020federated}, and \cite{pmlr-v119-karimireddy20a}.
+      
+      
+      % ***********************
 \end{itemize}
 
 \section{Problem Statement}
@@ -116,6 +135,9 @@
       % ########################################################
 
       \item Which of the deficits are you going to solve?
+      \begin{itemize}
+            \item Most of the existing work focusing on the image classification task and very few of works explore the object detection task
+      \end{itemize}
       \item What is your intended approach?
       \item How will you compare you approach with existing approaches?
       \item FL+OD working pipeline, on a real world dataset
@@ -124,6 +146,7 @@
       \item Compare FL frameworks and choose 1 or 2
       \item Check FL aggregation methods
       \item Analyze compute resource constrained OD models
+      \item Use real world 3D depth images for object detection
       
       % ////////////////////////////
       \item As seen in the Figure (TODO: add a figure with computer vision task papers), most of the literature work is done in federated learning (FL) for computer vision is for classification. FL with object detection is not yet well explored with the new edge hardware and the state-of-the-art models.
