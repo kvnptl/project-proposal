@@ -8,10 +8,16 @@
 \usepackage{graphicx}
 \usepackage{pdflscape}
 \usepackage{svg}
+\usepackage{xcolor}
+\usepackage{array} % Required for 'p' column type
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{subcaption}  % Allows subfigures
 
 \title{Federated Learning for Object Detection Using 3D Depth Images}
 \author{Kevin Patel}
-\supervisors{Prof. Dr.-Ing. Sebastian Houben\\Prof. Dr. Robert Lange\\Dr. Markus Hammes\\Dr. Nikolaus Mayer}
+\supervisors{Prof. Dr.-Ing. Sebastian Houben\\Prof. Dr. Robert Lange\\Dr. Markus Hammes\\Dr.-Ing. Nikolaus Mayer}
 \date{September 2024}
 
 \thirdpartylogo{images/Logo_SICK_AG_2009.png}
@@ -25,140 +31,110 @@
 \section{Introduction}
 
 \subsection{Topic of This Thesis}
-\begin{itemize}
-      % *************************
-      \item Provide reasonably detailed description of what you intent to do in your thesis project.
-      \item You may also discuss the challenges that you have to address.
-      \item Reflect on the profile of the reader and PLEAAAASE, tell a story here and refrain from bombarding the readers with details which they may not be able to appreciate.
-      % **************************
 
-      %     \item Imagine driving on a winding mountain road at night, with fog and rain obscuring your view, your vehicle's self-driving system struggles to detect objects ahead due to the challenging weather conditions. Suddenly, a deer jumps out in front of your car, causing the system to issue an alert and apply the brakes in time to avoid a collision.
-      \item TODO: Put a story or a very basic scenario here to make the reader understand the problem.
-      \item Keep it in industrial context
-      \item Start with privacy issue with the centralized training especially in the consumer AI context
-      \item Issue with scaling DL models
-      \item Then how FL solves that problem, put a FL workflow diagram
-      \item FL settings, what is our focus in that
-      \item Industrial context
-      \item Applicable to broader fields, medical, finance, surveillance
-      \item Laws enforcing FL, put those papers
-            \begin{itemize}
-                  \item \cite{voigt2017eu}
-            \end{itemize}
-      \item From \cite{shenaj2023federated}
-      \begin{itemize}
-            \item Large-scale machine learning models deployed in real-world scenarios often require training data sharing on a centralized server, where the actual model optimization takes place. Federated Learning (FL) was initially introduced in \cite{mcmahan2017communication} as an alternative approach to train a global model across multiple devices while preserving the privacy and decentralization of their respective data. \cite{shenaj2023federated}
-            \item In particular, machine learning methods for computer vision heavily rely on collecting and storing a huge amount of annotated image data on a central server. Centralizing such data necessitates the transfer of a significant volume of information, resulting in substantial communication overhead. Moreover, centralized data storage poses risks to user privacy and confidentiality, and recent regulations on data privacy prohibit the uploading of sensitive local data to centralized data centers \cite{voigt2017eu}.
-            \item Federated learning has emerged as a promising solution to address these challenges, as it enables on-device training of visual models. In FL, data remains localized on individual devices, and the collaborative training process involves exchanging model parameters instead of raw data.
-      \end{itemize}
+\indent \indent In today's technology-driven world, the increasing digitization of systems is evident. To advance and enhance their efficiency, systems need to become more intelligent, which is where the field of Artificial Intelligence (AI) comes into play. AI, a subdomain of computer science, focuses on designing machines capable of performing tasks that typically require human intelligence. Over the years, AI has transcended the boundaries of computer science and is now revolutionizing numerous industries.
 
-\end{itemize}
+Among the subfields of AI, machine learning (ML) and deep learning (DL) have gained significant momentum, impacting nearly every sector. In particular, DL, known for its data-intensive nature, has garnered substantial attention due to its scalability with data. Recent advancements in natural language processing (NLP) exemplify this, with large language models (LLMs), such as BERT \cite{devlin2018bert} and the GPT series\cite{Radford2019LanguageMA}, achieving near-human-level performance by leveraging extensive datasets. Similarly, in the domain of computer vision, publicly available large datasets like ImageNet\cite{deng2009imagenet} and COCO\cite{lin2014microsoft} have demonstrated that model performance improves with the quantity and diversity of training data.
 
-\subsection{Relevance of This R\&D Project}
-\begin{itemize}
+However, the reliance on vast amounts of data underscores the critical importance of accessing high-quality, diverse datasets. Ensuring robustness and sustainability of these models necessitates not only effective initial training but also mechanisms for continual updates using newly acquired data. Given the limited scope of data from a single source, aggregating data from multiple sources becomes indispensable. This raises the fundamental question: where can we acquire a continuous stream of diverse and real-world data?
 
-      % *************************    
-      \item Who will benefit from the results of this R\&D project?
-      \item What are the benefits? Quantify the benefits with concrete numbers.
-            % *************************
-\end{itemize}
+\subsection{The Importance of Data Privacy and Security}
+\label{sec:introduction_data_privacy_security}
+
+\indent \indent The centralized approach to ML poses significant challenges to user privacy and data security. Sensitive data, particularly that which involves human activities or personal information, is often subject to stringent legal and ethical constraints. Global regulations, such as GDPR (Europe) \cite{voigt2017eu}, CCPA (California) \cite{CCPA2018}, PIPEDA (Canada) \cite{PIPEDA2000}, LGPD (Brazil) \cite{LGPD2018}, PDPL (Argentina) \cite{PDPL2000}, KVKK (Turkey) \cite{KVKK2016}, POPI (South Africa) \cite{POPIA2013}, FSS (Russia) \cite{FZ1522006}, CDPR (China) \cite{PIPL2021}, PDPB (India) \cite{DPDPB2022}, PIPA (Korea) \cite{PIPA2011}, APPI (Japan) \cite{APPI2003}, PDP (Indonesia) \cite{PDP2022}, PDPA (Singapore) \cite{PDPA2012}, APP (Australia) \cite{APPI2003}, and others, underscore the importance of protecting sensitive data from unauthorized access or misuse. These regulations often prohibit the transfer of user data across jurisdictions or even within the same organization when governed by different data protection laws \cite{beutel2020flower}.
+
+This highlights the need for privacy-preserving methodologies that allow the utilization of user data without direct access to raw information. Federated Learning (FL), introduced by McMahan et al. in 2017 \cite{mcmahan2017communication}, offers a promising solution by enabling collaborative model training across decentralized data sources while maintaining the privacy of individual datasets. By training models locally on user devices and aggregating only the model updates at a central server, FL ensures that raw data remains localized, addressing critical privacy concerns. This privacy-preserving paradigm has garnered substantial interest in both academia and industry, as illustrated by the growing number of FL-related publications in top conferences such as NeurIPS, ICLR, and ICML (see Figure~\ref{fig:introduction_published_paper_conferences}).
+
+\begin{figure}[h]
+      \centering
+      \includegraphics[width=0.7\textwidth]{images/01_introduction/published_paper_conferences.png}
+      \caption{Count of FL papers published in top conferences (2019–2022). (Image source \cite{liu2024recent})}
+      \label{fig:introduction_published_paper_conferences}
+\end{figure}
+
+This thesis aims to leverage the FL paradigm to utilize data from consumer-end sensors for training and updating DL models in a privacy-preserving manner. The focus is on applying FL to a computer vision task—object detection—where the target datasets involve human activities, necessitating stringent adherence to privacy and security regulations.
+
+\subsection{Relevance of This Master Thesis}
+
+\indent \indent The rapid advancements in deep learning (DL) have significantly increased the demand for diverse, real-world data to train sophisticated models. However, the collection, storage, and processing of such data often involve sensitive information, particularly when dealing with datasets that capture human identities, activities, or personal details. This sensitivity is compounded by strict regulations on data privacy and security, as dicussed in the previous section \ref{sec:introduction_data_privacy_security}, which impose severe penalties for violations. These factors underscore the critical need for privacy-preserving mechanisms in data-driven applications.
+        
+In this thesis, the focus is on computer vision tasks, particularly object detection, where the target datasets inherently involve information about human activities. Collecting and using such data in a centralized manner poses substantial risks, including potential breaches of user privacy and non-compliance with legal standards. Therefore, a robust approach is required to leverage this data while ensuring that user confidentiality is preserved.
+    
+Federated Learning (FL) emerges as a promising paradigm to address these challenges. Unlike traditional machine learning approaches, FL enables collaborative model training without the need to exchange raw data between entities. Instead, the data remains decentralized on the user’s devices or local systems, with only model updates shared with a central server. This approach not only preserves privacy by ensuring that sensitive data never leaves local devices, but also offers significant bandwidth efficiency by transmitting only model parameters rather than large raw data samples. Such a privacy-preserving framework not only aligns with stringent legal requirements but also fosters user trust by respecting their confidentiality.
+    
+Furthermore, FL is a task-agnostic paradigm and can be applied to a wide range of machine learning problems across diverse domains. In addition to its application in computer vision tasks such as object detection, FL has demonstrated significant potential in areas such as autonomous driving, healthcare, finance, warehousing, and more, as illustrated in Figure~\ref{fig:introduction_fl_application}. These applications highlight the versatility and transformative impact of FL in both consumer and industrial settings, particularly where sensitive data plays a critical role.
+    
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=1.0\textwidth]{images/01_introduction/fl_applications.pdf}
+        \caption{Applications of federated learning}
+        \label{fig:introduction_fl_application}
+    \end{figure}
+    
+The motivation for this work lies in bridging the gap between the need for high-quality, real-world data for deep learning models and the ethical imperative to preserve user privacy. By leveraging FL, this thesis aims to develop a secure, privacy-preserving pipeline for training object detection models, contributing to the growing body of research that seeks to balance innovation with ethical responsibility.
 
 \section{Related Work}
 
 \subsection{Survey of Related Work}
+
+\indent \indent This chapter presents a review of existing research related to Federated Learning (FL) for object detection, with a specific focus on real-time performance and the use of 3D depth images.  As FL in computer vision is a broad field encompassing diverse applications (as illustrated in Figure~\ref{fig:introduction_fl_application}), this work narrows its scope to address the unique challenges of real-time object detection, particularly within human-robot collaborative environments.  This focus is driven by the critical need for rapid and accurate human detection in such settings, enabling safe and efficient interaction.  Specifically, this work considers 2D object detection from 3D depth images, targeting human subjects as the sole class of interest. This work focuses on a supervised approach, meaning ground-truth labels are available on the client-side. Real-time performance is defined as achieving a throughput of at least 30 FPS. 
+
+    
+While FL has been extensively studied for image classification, its application to object detection, especially in real-time scenarios with 3D depth images, remains relatively less explored.  Much of the existing work in FL for object detection focuses on autonomous vehicles, likely due to the abundance of open-source datasets and the inherent applicability of FL to collaborative vehicle networks (i.e., multiple vehicles acting as FL clients). Therefore, this review primarily considers relevant works from the autonomous vehicle domain, focusing on 2D object detection. To the best of our knowledge, no prior work has directly addressed FL for 3D depth image-based object detection. Consequently, this review includes closely related studies that utilize RGB images in FL-based object detection workflows.
+
+\subsubsection{Federated Learning for Object Detection}
+
+\indent \indent Numerous studies have investigated the use of FL to enhance the visual perception capabilities of vehicles, covering tasks such as traffic sign recognition\cite{xie2022efficient, padaria2023traffic, lian2023traffic}, road damage detection\cite{yuan2021fedrd}, semantic segmentation\cite{fantauzzo2022feddrive}, and, most commonly, object detection \cite{wang2022federated}.
+
+\textbf{Supervised Federated Object Detection}: Several works have explored supervised FL for 2D object detection in autonomous vehicles. Rjoub et al. \cite{rjoub2021improving} investigated federated real-time object detection in adverse weather conditions using the original YOLO model.  Chen et al. \cite{chen2020federated} studied FL for vehicular object detection with SSD (single stage detector) under communication and computation constraints. Bommel \cite{bommel2021active} and Rjoub et al. \cite{rjoub2022active} employed active learning with YOLOv5s and YOLOR, respectively, to address the challenge of sparse data labeling in FL for real-time object detection. Dai et al. \cite{dai2021flame} proposed FLAME, a framework for online federated object detection with continuously streamed data, demonstrated with YOLOv2. Wang et al. \cite{wang2022carlaflcav} designed CarlaFLCAV, an open FL simulation platform for automotive perception tasks, including object detection with YOLOv5, and addressed network resource and sensor placement optimization.
+
+\textbf{Semi-Supervised Federated Object Detection}: Other research has focused on semi-supervised approaches to leverage unlabeled data. Chi et al. \cite{chi2021federated} used a soft teacher semi-supervised object detection framework for FL training with Faster R-CNN on unlabeled driving data, supplemented by a small labeled dataset. Rao et al. \cite{rao2021fedweg} proposed FedWeg, a sparse FL training process evaluated on YOLOv3, to address computational and communication limitations. Su et al. \cite{su2021fedod} proposed FedOD, a cross-domain FL framework for object detection based on multi-teacher distillation, validated with RetinaNet. Kim et al. \cite{kim2022fedsto} proposed FedSTO, a two-stage training strategy for semi-supervised federated object detection with YOLOv5 in heterogeneous environments with unlabeled client data and labeled server data \cite{quemeneur2024fedpylot}.
+
+% From \cite{shenaj2023federated} survey paper
+% Research has also explored FL in non-standard settings, such as with unlabeled or incrementally available data \cite{shenaj2023federated}. Huang et al. \cite{huang2020heterogeneous} used unlabeled public data and self-supervised learning for heterogeneous model communication. Li et al. \cite{li2021federated} focused on federated semi-supervised learning with partially supervised clients.  Federated active learning frameworks have also been proposed to utilize unlabeled client samples \cite{ashraf2020federated, fallah2020federated}.  Other works have addressed federated class incremental learning, tackling catastrophic forgetting in local and global contexts \cite{kang2020federated}.
+
+\textbf{Multimodal Federated Object Detection}: Some studies have explored multimodal data for object detection in FL. Zheng et al. \cite{zheng2021autofed} proposed AutoFed, a FL framework for bird's-eye view vehicle detection using LiDAR and radar data, trained on several NVIDIA Jetson TX2 devices.
+
+These investigations often employ models unsuitable for real-time vision or utilize older machine learning models, limiting their applicability to modern real-time vision systems \cite{quemeneur2024fedpylot}. Among the limited research on FL for object detection, three studies are particularly relevant to this thesis.
+
+Jallepalli et al. \cite{jallepalli2021federated} presented a prototype for federated optimization of an object detector in an HPC (high performance computing) environment for autonomous driving, using YOLOv3. Their work demonstrated the feasibility of achieving comparable performance to centralized training with real-world RGB data from the KITTI dataset across four clients.  However, their approach uses the older YOLOv3 model, and relies on a custom, non-scalable FL framework tied to the HPC environment. Furthermore, they only explored the basic FedAvg strategy, assumed IID data partitioning, and did not analyze communication costs or the impact of varying FL rounds and local epochs. Their custom FL implementation is restricted to server-client communication, requiring all defined clients to be available for aggregation.
+
+Quéméneur and Cherkaoui \cite{quemeneur2024fedpylot} also focused on HPC-based FL deployment for object detection, utilizing YOLOv7 and the nuScenes dataset. Similar to Jallepalli et al., employ a custom, non-scalable FL framework for the custom HPC setup. Their implementation is also restricted to server-client communication, assuming all defined clients are available for aggregation. They did not explore the impact of varying local epochs or different optimization strategies.
+
+Khalil et al. \cite{khalil2024driving} proposed an adaptive clustered FL technique for car detection using the YOLOv8 nano version, focusing mainly on communication efficiency. While they considered varying weather and lighting conditions, their work relies on simulated data rather than real-world data and employs a lightweight model variant with limited learning capacity.
+
+It is important to note that all the aforementioned works assume the availability of labeled data on the client-side.
+
+\subsubsection{Limitation in the State of the Art}
+
+\indent \indent Previous works in federated object detection often focus primarily on global model performance, neglecting the crucial aspect of evaluating personalized client models. This thesis addresses this gap by explicitly analyzing client-side performance, providing insights into the benefits of personalized FL (pFL) and directly addressing the question of whether participating clients also benefit from the FL process. Demonstrating such benefits is essential for incentivizing client participation and ensuring the long-term success of FL deployments. Moreover, many existing implementations rely on custom FL frameworks, which can hinder scalability, maintainability, and transferability to edge devices.
+    
+This thesis makes the following key contributions:
+
 \begin{itemize}
-
-      % - Overall talk about:
-      %     - 
-
-      % - TODO:
-      %     - First, start with writing all the information about the related work
-      %     - Later, we can organize it into proper sequence
-      %     - Stop when you find at least 10 related papers.
-
-      % ***********************
-      \item What have other people done to solve the problem?
-      \item You should reference and briefly discuss at least the ``top twelve'' related works
-      \item Rising research trend for FL, put that fig with papers over years
-      \item But mostly theoretical aspect on benefits of FL and its comparison with some toy datasets 
-      \item FL+CV, only classification is covered in most of the papers, show that paper published graphs
-      \item A very few FL+OD papers, that to even in practical and application oriented are close to none
-      
-      \item The first seminal paper \cite{mcmahan2017communication} , talks about Federated Learning(FL) as compared to centralized model training. This paper coined the term federated learning. The key focus of this paper privacy preserving machine learning models for consumer mobile devices. The object is to how to leverage the real world user data to train an efficient machine learning model without risking user's privacy. Also discussed difference between decentralized and federated learning.
-      % TODO: add a table decentralized vs federated learning
-      \begin{itemize}
-            \item The experiments proves that FL achieves comparable results to centralized training. The paper presented a basic CNN-based models on two datasets, MNIST and CIFAR10. The results are promising and show that FL learning paradigm can be used to take advantage of the large data and maintain privacy.
-            \item The paper presented federated aggregation algorithm called FedAvg, which aggregates individual clients models at the server-end.
-      \end{itemize}
-      \item Limitations: 
-      \begin{itemize}
-            \item the presented results are on the tiny models and using toy datasets.
-            \item the main task was image classification only
-            \item Entire FL workflow implemnted on a single GPU-powered machine and FL is performed in a simulated fashion.
-      \end{itemize}
-      
-            % ***********************
+      \item \textbf{Open-Source Implementation:}  This work introduces the first implementation of FL for object detection using the open-source Flower framework \cite{beutel2020flower}, enabling scalability, maintainability, and seamless transfer to edge devices.
+      \item \textbf{3D Depth Image Dataset:} This is the first study to explore FL for object detection in the 3D depth image domain. Results are also presented with other modality data, such as intensity images and a raw data-level fusion of depth and intensity data. Additionally, this work releases a synchronized dataset of 3D depth images and intensity images.
+      \item \textbf{Automated Annotation Pipeline:} A custom ADAP (Automated Data Annotation Pipeline) workflow is employed to generate annotations for training using the custom sensor setup, addressing the annotation bottleneck in real-world scenarios.
+      \item \textbf{State-of-the-Art Model:} The state-of-the-art real-time object detection model, YOLOv11, is utilized, maximizing the potential for real-time performance.
+      \item \textbf{Comprehensive FL Evaluation:}  Beyond the standard FedAvg strategy, three additional FL strategies are evaluated. A detailed analysis of the impact of varying communication rounds and local client epochs is conducted.
+      \item \textbf{Personalized Model Evaluation:} Evaluating personalized client-side model performance in FL for object detection provides insights into the benefits of personalization for individual clients.
+      \item \textbf{Data Partitioning Analysis:}  Experiments are conducted across multiple data partition variations (IID, IID non-uniform, and Non-IID) to thoroughly assess the impact of data heterogeneity on model performance.
+      \item \textbf{Flexible Client Availability:} Unlike previous works that wait for all clients to be available before aggregation starts, the proposed FL system is designed to handle flexible client availability. The server waits for a certain time duration and continues aggregation without getting stuck waiting for all defined clients.
 \end{itemize}
 
-\subsection{Limitation and Deficits in the State of the Art}
-\begin{itemize}
-
-
-      % ***********************
-      \item List the deficits that you have discovered in the related work and explain them such that a person who is not deep into the technical details can still understand them. 
-      \item For each deficit, provide at least two references
-      \item You should reference and briefly discuss at least the ``top twelve'' related works
-      \item None in the 3D depth image domain or intensity images
-      \item Here, input data itself prioritize privacy especially when it comes to person recognition
-      \item Most of the existing work focusing on the image classification task and very few of works explore the object detection task
-      \begin{itemize}
-            \item Even in object detection, the models are old and recent advancement in the detection models are not addressed well
-      \end{itemize}
-      \item Regarding the dataset, many of the work use toy datasets and lack the exploration on the real world dataset.
-      \item Most studies on federated learning focus on its theoretical and communication aspects \cite{acar2021federated}, \cite{lu2022federated}, \cite{li2020federated}, and \cite{pmlr-v119-karimireddy20a}.
-      
-      
-      % ***********************
-\end{itemize}
+This work significantly advances the state of the art by focusing on the federated optimization of a recent real-time object detector (YOLOv11) and providing a comprehensive evaluation of its performance, including personalized client-side analysis. The flexible and scalable implementation using the Flower framework addresses the limitations of custom, non-maintained frameworks. The use of 3D depth images, the novel ADAP annotation pipeline, the exploration of multiple FL strategies and data partitioning schemes, and the ability to handle flexible client availability further distinguish this research.
 
 \section{Problem Statement}
-\begin{itemize}
 
-      % ########################################################
-      % ###################################################
-      % BOOKMARK: 
-      % 1. Start writing problem statement - Pending
-      % 2. Rephrase the related work paragraphs - Pending
-      % 3. Write the project plan - DONE
-      % 4. Generate Gantt chart - Pending
-      % ########################################################
-      % ########################################################
+\indent \indent The rapid proliferation of smart sensors in industrial environments has resulted in an abundance of data, particularly visual information, which hold immense potential for object detection tasks. However, traditional centralized training approaches, which aggregate data from multiple sources, face critical challenges related to privacy, security, and regulatory compliance. These issues are particularly pronounced in industrial settings, where sensitive operational data requires careful handling to avoid breaches or violations of legal standards.
 
-      \item Which of the deficits are you going to solve?
-      \begin{itemize}
-            \item Most of the existing work focusing on the image classification task and very few of works explore the object detection task
-      \end{itemize}
-      \item What is your intended approach?
-      \item How will you compare you approach with existing approaches?
-      \item FL+OD working pipeline, on a real world dataset
-      \item A non-RGB based dataset
-      \item Implementation on edge-devices
-      \item Compare FL frameworks and choose 1 or 2
-      \item Check FL aggregation methods
-      \item Analyze compute resource constrained OD models
-      \item Use real world 3D depth images for object detection
-      
-      % ////////////////////////////
-      \item As seen in the Figure (TODO: add a figure with computer vision task papers), most of the literature work is done in federated learning (FL) for computer vision is for classification. FL with object detection is not yet well explored with the new edge hardware and the state-of-the-art models.
+Moreover, object detection models are computationally intensive and rely on diverse, high-quality datasets for optimal performance. The decentralized nature of Federated Learning (FL) offers a promising alternative by enabling collaborative model training without directly accessing raw data. However, its application to object detection tasks, especially in industrial scenarios, remains underexplored due to challenges like scalability, data heterogeneity, and adapting FL frameworks for computer vision tasks.
 
-            % \item The comparative analysis of the results will include an assessment of the strengths and weaknesses of each approach with respect to existing state-of-the-art methods.
-
-\end{itemize}
+This thesis addresses the pressing need for privacy-preserving solutions in industrial object detection tasks by developing an end-to-end federated learning pipeline. The proposed pipeline leverages 3D depth images and incorporates key stages, including data collection, preprocessing, model training, evaluation, and deployment, while ensuring compliance with privacy and security standards. By tailoring federated learning for industrial applications, this work seeks to advance privacy-aware AI solutions for real-world use cases.
 
 \section{Project Plan}
 
 \subsection{Work Packages}
-% \emph{Planning is the replacement of randomness by error.} (Einstein). Very much like you would never start a longer journey without a detailed travel plan, you should not start a project without a carefully though out work plan. A work package is a logical decomposition of a larger piece of work into smaller parts following a ``divide and conquer" strategy. It is very specific to the problem that you are going to address. Refrain from a rather generic decomposition. If your work plan looks similar to those of your school mates, which may address completely different problems then you have not thought carefully enough about how you approach the problem. It is ok to have two generic work packages \emph{Literature Study} and \emph{Project Report}. Discuss your work packages in the ASW seminar.
 
 % The bare minimum will include the following packages:
 \begin{enumerate}
@@ -173,7 +149,7 @@
       \item[WP2] Data Collection and Preparation
             \begin{itemize}
                   \item[WP2.1] Generate a custom dataset consisting of 3D depth images suitable for training and testing object detection models
-                  \item[WP2.2] Preprocess the dataset, including data cleaning, augmentation, and handling any data imbalance issues
+                  \item[WP2.2] Preprocess the dataset, including data cleaning, augmentation, annotation and handling any data imbalance issues
                   \item[WP2.3] Develop tools for managing and preparing the dataset for Federated Learning experiments (e.g., partitioning the dataset across simulated nodes)
             \end{itemize}
 
@@ -191,20 +167,20 @@
                   \item[WP4.3] Optimize model performance by tuning hyperparameters, modifying architecture, or adjusting the dataset for improved FL-based results
             \end{itemize}
 
-      \item[WP5] Implementation on Edge Devices
-            \begin{itemize}
-                  \item[WP5.1] Implement the FL-based object detection model on edge devices, ensuring it runs efficiently under resource constraints (e.g., limited computation, bandwidth)
-                  \item[WP5.2] Test and evaluate the performance of the model on edge devices, measuring factors such as accuracy, inference time, and system profile
-                  \item[WP5.3] Integrate any necessary optimizations for FL-based object detection specifically tailored to edge deployment scenarios
-            \end{itemize}
+      % \item[WP5] Implementation on Edge Devices
+      %       \begin{itemize}
+      %             \item[WP5.1] Implement the FL-based object detection model on edge devices, ensuring it runs efficiently under resource constraints (e.g., limited computation, bandwidth)
+      %             \item[WP5.2] Test and evaluate the performance of the model on edge devices, measuring factors such as accuracy, inference time, and system profile
+      %             \item[WP5.3] Integrate any necessary optimizations for FL-based object detection specifically tailored to edge deployment scenarios
+      %       \end{itemize}
 
-      \item[WP6] Advanced Development and Optional Extensions
+      \item[WP5] Advanced Development and Optional Extensions
             \begin{itemize}
                   \item[WP6.1] Develop a containerized workflow to facilitate easy deployment of the FL-based object detection pipeline across different environments
-                  \item[WP6.2] If time permits, extend the project by integrating object tracking with FL-based object detection or adding uncertainty estimation capabilities to the models
+                  \item[WP6.2] If time permits, extend the project by integrating object tracking with FL-based object detection
             \end{itemize}
 
-      \item[WP7] Project Report and Finalization
+      \item[WP6] Project Report and Finalization
             \begin{itemize}
                   \item[WP7.1] Write a comprehensive project report detailing the research objectives, methodology, results, and findings
                   \item[WP7.2] Present a critical analysis of the performance comparison between centralized and FL-based approaches, highlighting contributions, limitations, and future research directions
@@ -219,14 +195,14 @@
 \begin{enumerate}
       \item[M1] Comprehensive literature review on state-of-the-art FL-based object detection methods completed, with key models and techniques identified for replication
       \item[M2] Replication of existing models from relevant literature completed
-      \item[M3] Custom 3D depth image dataset generated and preprocessed (e.g., cleaning, augmentation)
+      \item[M3] Custom 3D depth image dataset generated and preprocessed (e.g., cleaning, augmentation, annotation)
       \item[M4] Comparative analysis of at least two FL methods on the custom dataset completed, with detailed performance metrics recorded
       \item[M5] Comparative analysis of centralized vs. FL-based object detection completed, with performance results and key findings documented
       \item[M6] Development of a working pipeline for FL-based object detection (simulated) on 3D depth images completed
-      \item[M7] Implementation of FL-based object detection on edge devices completed
-      \item[M8] Final model development and testing completed, including optimization and an in-depth evaluation of strengths and weaknesses
-      \item[M9] Extension of the project with the development of a containerized workflow for easy deployment completed
-      \item[M10] Final project report completed, covering methodology, experimental setup, results, and thorough analysis.
+      % \item[M7] Implementation of FL-based object detection on edge devices completed
+      \item[M7] Final model development and testing completed, including optimization and an in-depth evaluation of strengths and weaknesses
+      \item[M8] Extension of the project with the development of a containerized workflow for easy deployment completed
+      \item[M9] Final project report completed, covering methodology, experimental setup, results, and thorough analysis
 \end{enumerate}
 
 \subsection{Project Schedule}
@@ -235,13 +211,13 @@
 
 \begin{figure}[h]
       % \centering
-      \hspace{-4em}
-      \includegraphics[scale=0.3]{images/project_plan/Gantt_chart.png}
+      \hspace{-5em}
+      \includegraphics[scale=0.4]{images/project_plan/Gantt_chart_2.png}
       \caption{Gantt chart of the project schedule}
       \label{fig:myfigure}
 \end{figure}
 
-\newpage
+% \newpage
 \subsection{Deliverables}
 \subsubsection*{Minimum Viable}
 \begin{itemize}
@@ -260,7 +236,7 @@
       % \item Project results required to get a good grade.
       \item Fulfill all minimum viable deliverables
       \item Complete the final development and testing of the model, and a detailed analysis of the strengths and weaknesses of each approach
-      \item Develop a working pipeline for FL-based object detection on 3D depth images (simulated)
+      \item Develop a working pipeline for FL-based object detection on 3D depth images
       \item Produce a more extensive project report detailing the methodology, experimental setup, results, and in-depth analysis
 
 \end{itemize}
@@ -269,12 +245,12 @@
 \begin{itemize}
       % \item Project results required to get an excellent grade.
       \item Fulfill all expected deliverables
-      \item Implement FL-based object detection on edge devices
+      % \item Implement FL-based object detection on edge devices
       \item Develop a containerized workflow for easy deployment
+      \item Perform experiments with other modality data (e.g., intensity images (2D)) and a fusion of depth (3D) and intensity (2D) data
       \item Additional objectives (if time permits):
       \begin{itemize}
             \item Integrate object tracking with FL-based object detection
-            \item Implement FL-based object detection with uncertainty estimation
       \end{itemize}
 
 \end{itemize}
@@ -283,7 +259,9 @@
 
 \nocite{*}
 
-\bibliographystyle{unsrt} % Use the plainnat bibliography style
-\bibliography{bibliography.bib} % Use the bibliography.bib file as the source of references
+% \bibliographystyle{unsrt} % Use the plainnat bibliography style
+% \bibliography{bibliography.bib} % Use the bibliography.bib file as the source of references
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography} % Use the bibliography.bib file as the source of references
 
 \end{document}

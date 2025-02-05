@@ -1,0 +1,60 @@
+This is BibTeX, Version 0.99d (TeX Live 2019/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: PatelK_MTProposal.aux
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: bibliography.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in dwork2009differential
+Warning--empty journal in gentry2009fully
+Warning--empty year in gentry2009fully
+
+Done.
+You've used 84 entries,
+            4087 wiz_defined-function locations,
+            1237 strings with 24302 characters,
+and the built_in function-call counts, 60210 in all, are:
+= -- 4609
+> -- 1665
+< -- 415
++ -- 920
+- -- 339
+* -- 2801
+:= -- 8755
+add.period$ -- 186
+call.type$ -- 84
+change.case$ -- 99
+chr.to.int$ -- 1032
+cite$ -- 87
+duplicate$ -- 4389
+empty$ -- 5068
+format.name$ -- 375
+if$ -- 14081
+int.to.chr$ -- 0
+int.to.str$ -- 84
+missing$ -- 845
+newline$ -- 295
+num.names$ -- 70
+pop$ -- 2186
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 4565
+stack$ -- 0
+substring$ -- 2601
+swap$ -- 3379
+text.length$ -- 71
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 84
+warning$ -- 3
+while$ -- 240
+width$ -- 86
+write$ -- 788
+(There were 3 warnings)
